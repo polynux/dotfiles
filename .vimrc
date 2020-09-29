@@ -24,6 +24,15 @@ Plugin 'sainnhe/sonokai'
 " https://github.com/sheerun/vim-polyglot
 Plugin 'sheerun/vim-polyglot'
 
+" https://github.com/roxma/vim-hug-neovim-rpc
+Plugin 'roxma/vim-hug-neovim-rpc'
+
+"https://github.com/roxma/nvim-yarp
+Plugin 'roxma/nvim-yarp'
+
+" https://github.com/Shougo/deoplete.nvim
+Plugin 'Shougo/deoplete.nvim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -62,3 +71,8 @@ let g:sonokai_style = 'andromeda'
 let g:sonokai_enable_italic = 1
 let g:sonokai_disable_italic_comment = 1
 colorscheme sonokai
+
+let g:python3_host_prog = '/usr/bin/python3'
+
+" use deoplete
+let g:deoplete#enable_at_startup = 1
