@@ -1,3 +1,2 @@
-git submodule update --init --recursive
-cd ~ && cp -f -r dotfiles/.vimrc dotfiles/.vim .
-pip3 install --user pynvim
+cp -f vimrc ~/.SpaceVim/
+cp -f init.toml ~/.SpaceVim.d/
