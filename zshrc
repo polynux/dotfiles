@@ -68,7 +68,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,8 +97,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+export DEFAULT_USER="polynux"
+prompt_context(){}
+
+# gcc compile flags aliases
 alias gcc="gcc -Wall -Wextra -Werror -pedantic -std=c99"
+
+# git aliases
 alias gita="git add"
 alias gitcm="git commit -m"
 alias gitc="git commit"
