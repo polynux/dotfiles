@@ -1,0 +1,15 @@
+alias ls="lsd"
+alias vim="nvim"
+alias svim="/usr/vim"
+alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
+alias arn="ssh -A guillaume.dorce@arena.bms.lan"
+alias ta="tmux a"
+alias npm="pnpm"
+alias gw="gulp watch"
+alias colors="$HOME/.config/scripts/colors.sh"
+
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s`
+    ssh-add
+	clear
+fi
