@@ -14,3 +14,5 @@ ZCONFIG="$HOME/dotfiles/zsh"
 
 . "$HOME/.cargo/env"
 . "$ZCONFIG/init.zsh"
+. "$ZCONFIG/completion.zsh"
+. "$ZCONFIG/key-bindings.zsh"
