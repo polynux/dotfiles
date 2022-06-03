@@ -1,4 +1,7 @@
-alias ls="lsd"
+if [[ -s "/usr/bin/lsd" ]]; then
+    alias ls="lsd"
+fi
+
 alias vim="nvim"
 alias svim="/usr/vim"
 alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
