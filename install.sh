@@ -1,13 +1,6 @@
-curl -sLf https://spacevim.org/install.sh | bash
-cp -f vimrc ~/.SpaceVim/
-cp -f init.toml ~/.SpaceVim.d/
+ln -s "$PWD/zsh/zshrc" "$HOME/.zshrc"
+ln -s "$PWD/zsh/zshenv" "$HOME/.zshenv"
+ln -s "$PWD/zsh/zprofile" "$HOME/.zprofile"
+ln -s "$PWD/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -s "$PWD/nvim" "$HOME/.config/nvim"
 
-# oh-my-zsh install
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-cp -f zshrc ~/.zshrc
-
-# zsh plugins
-export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
