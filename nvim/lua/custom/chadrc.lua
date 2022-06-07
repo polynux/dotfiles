@@ -21,7 +21,7 @@ M.options = {
 }
 
 M.plugins = {
-   -- user = require "custom.plugins",
+   user = require "custom.plugins",
    override = {
       ["nvim-treesitter/nvim-treesitter"] = configs.treesitter,
       ["kyazdani42/nvim-tree.lua"] = configs.tree
