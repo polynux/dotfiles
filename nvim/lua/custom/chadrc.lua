@@ -1,5 +1,6 @@
 local M = {}
 local opt = vim.opt
+local configs = require "custom.plugins.configs"
 
 M.ui = {
    theme = "chadracula",
@@ -13,11 +14,18 @@ M.options = {
       opt.sidescroll = 5
       opt.listchars = {tab = ">─", eol = "¬", trail = " ", nbsp = "¤"}
       opt.list = true
-      vim.wo.wrap = true
       opt.wrap = true
       opt.textwidth = 119
       opt.colorcolumn = "120"
    end
+}
+
+M.plugins = {
+   -- user = require "custom.plugins",
+   override = {
+      ["nvim-treesitter/nvim-treesitter"] = configs.treesitter,
+      ["kyazdani42/nvim-tree.lua"] = configs.tree
+   }
 }
 
 return M
