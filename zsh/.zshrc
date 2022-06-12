@@ -20,6 +20,9 @@ source "$ZCONFIG/keybindings.zsh"
 if [[ -s "/usr/bin/lsd" ]]; then
     alias ls="lsd"
 fi
+alias la="ls -a"
+alias l="ls -la"
+alias ll="ls -l"
 alias vim="nvim"
 alias svim="/usr/vim"
 alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
