@@ -25,7 +25,12 @@ M.plugins = {
    override = {
       ["nvim-treesitter/nvim-treesitter"] = configs.treesitter,
       ["kyazdani42/nvim-tree.lua"] = configs.tree
-   }
+   },
+   options = {
+        lspconfig = {
+            setup_lspconf = "custom.plugins.lspconfig"
+        }
+    }
 }
 
 return M

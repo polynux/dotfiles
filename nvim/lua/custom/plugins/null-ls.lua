@@ -11,6 +11,9 @@ local sources = {
    b.formatting.stylua,
    b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
 
+    b.diagnostics.golangci_lint,
+    b.formatting.golangci_lint,
+
    -- Shell
    b.formatting.shfmt,
    b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
