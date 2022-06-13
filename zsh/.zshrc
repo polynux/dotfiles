@@ -24,7 +24,7 @@ alias la="ls -a"
 alias l="ls -la"
 alias ll="ls -l"
 alias vim="nvim"
-alias svim="/usr/vim"
+alias svim="/usr/bin/vim"
 alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 alias arn="ssh -A guillaume.dorce@arena.bms.lan"
 alias ta="tmux a"
@@ -57,3 +57,9 @@ function mkdir_and_cd() {
 }
 
 alias mkc=mkdir_and_cd
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS 

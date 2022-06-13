@@ -5,5 +5,6 @@ return {
         config = function()
             require("custom.plugins.null-ls").setup()
         end,
-    }
+    },
+    ["blueyed/smarty.vim"] = {},
 }
