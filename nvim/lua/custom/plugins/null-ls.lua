@@ -6,6 +6,7 @@ local sources = {
    b.formatting.prettierd.with { filetypes = { "html", "markdown", "css", "scss", "javascript", "json" } },
 
    b.formatting.phpcsfixer,
+    b.diagnostics.stylelint.with {filetypes = { "css", "scss", "sass" }},
 
    -- Lua
    b.formatting.stylua,
@@ -26,8 +27,8 @@ local setup = {
 
       -- format on save
       on_attach = function(client)
-         if client.resolved_capabilities.document_formatting then
-            vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+         if client.server_capabilities.document_formatting then
+            vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = true})"
          end
       end,
    }

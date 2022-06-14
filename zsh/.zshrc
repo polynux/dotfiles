@@ -10,7 +10,7 @@ export FZF_DIR="$ZCONFIG/fzf"
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name '\''*.tags'\'' -printf '\''%P\n'\'
 
-PATH="$HOME/.local/bin:$HOME/.local/share/pnpm:$PATH"
+PATH="$HOME/.local/bin:$HOME/.local/share/pnpm:/usr/local/go/bin:$PATH"
 
 source "$HOME/.cargo/env"
 source "$FZF_DIR/completion.zsh"
