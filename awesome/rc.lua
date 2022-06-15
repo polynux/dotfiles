@@ -17,7 +17,9 @@ local naughty = require("naughty")
 local ruled = require("ruled")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local lain = require("lain")
+
+local battery_widget = require("modules.awesome-wm-widgets.battery-widget.battery")
+local volume_widget = require("modules.awesome-wm-widgets.volume-widget.volume")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -80,7 +82,6 @@ tag.connect_signal("request::default_layouts", function()
         awful.layout.suit.tile,
         awful.layout.suit.magnifier,
         awful.layout.suit.floating,
-        lain.layout.termfair,
         -- awful.layout.suit.tile.left,
         -- awful.layout.suit.tile.bottom,
         -- awful.layout.suit.tile.top,
@@ -195,6 +196,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
             s.mytasklist, -- Middle widget
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
+                volume_widget(),
+                battery_widget(),
                 mykeyboardlayout,
                 wibox.widget.systray(),
                 mytextclock,
