@@ -36,6 +36,7 @@ alias ga="git add"
 alias gaa="git add --all"
 alias gst="git status"
 alias gpr="git pull --rebase"
+alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
