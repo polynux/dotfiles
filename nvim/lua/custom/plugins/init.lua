@@ -7,4 +7,5 @@ return {
         end,
     },
     ["blueyed/smarty.vim"] = {},
+    ["alker0/chezmoi.vim"] = {},
 }
