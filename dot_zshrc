@@ -38,6 +38,10 @@ alias gst="git status"
 alias gpr="git pull --rebase"
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 alias cm="chezmoi"
+alias cmcd="cd $(cm source-path)"
+alias cme="cm edit"
+alias cma="cm apply -v"
+alias cmd="cm diff"
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
