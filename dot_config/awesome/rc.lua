@@ -19,6 +19,8 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local battery = require("modules.battery")
 
+local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -201,6 +203,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
             s.mytasklist, -- Middle widget
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
+                volume_widget{
+                    widget_type = 'icon',
+                    icon_dir = gears.filesystem.get_configuration_dir() .. "assets/icons/"
+                },
                 battery(batteryOptions),
                 mykeyboardlayout,
                 wibox.widget.systray(),
