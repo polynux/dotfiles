@@ -480,10 +480,10 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule {
         id       = "floating",
         rule_any = {
-            instance = { "copyq", "pinentry", "pavucontrol" },
+            instance = { "copyq", "pinentry", "pavucontrol", "variety" },
             class    = {
                 "Arandr", "Blueman-manager", "Gpick", "Kruler", "Sxiv",
-                "Tor Browser", "Wpa_gui", "veromix", "xtightvncviewer"
+                "Tor Browser", "Wpa_gui", "veromix", "xtightvncviewer", "Variety" 
             },
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.

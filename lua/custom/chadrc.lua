@@ -3,7 +3,7 @@ local opt = vim.opt
 local configs = require "custom.plugins.configs"
 
 M.ui = {
-   theme = "chadracula",
+   theme = "tokyonight",
 }
 
 M.options = {
