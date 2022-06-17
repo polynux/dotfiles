@@ -10,3 +10,7 @@
 [".config/awesome/awesome-wm-widgets"]
     type = "git-repo"
     url = "https://github.com/streetturtle/awesome-wm-widgets"
+
+[".config/awesome/vicious"]
+    type = "git-repo"
+    url = "https://github.com/vicious-widgets/vicious.git"
