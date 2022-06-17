@@ -16,26 +16,28 @@ local theme = {}
 theme.master_width_factor = 0.6
 theme.font                = "Roboto 12"
 
-theme.bg_normal   = "#1d1d1d"
-theme.bg_focus    = "#153246"
-theme.bg_urgent   = "#ff0000"
-theme.bg_minimize = "#444444"
+theme.bg_normal   = "#1a1b26"
+-- theme.bg_focus    = "#a9b1d6"
+-- theme.bg_urgent   = "#f7768e"
+-- theme.bg_minimize = "#444444"
 theme.bg_systray  = theme.bg_normal
 
-theme.fg_normal   = "#aaaaaa"
+theme.fg_normal   = "#414868"
 theme.fg_focus    = "#ffffff"
-theme.fg_urgent   = "#ffffff"
+theme.fg_urgent   = "#f7768e"
 theme.fg_minimize = "#ffffff"
 
 theme.useless_gap   = dpi(5)
 theme.gap_single_client = false
-theme.border_width  = dpi(1)
+theme.border_width  = dpi(0)
 theme.border_normal = "#000000"
 theme.border_focus  = "#333d5c"
 theme.border_marked = "#91231c"
 
-theme.taglist_bg_focus = "#153246"
-theme.tasklist_bg_focus = "#153246"
+theme.taglist_fg_empty = "#414868"
+theme.taglist_fg_focus = "#9ece6a"
+theme.taglist_fg_occupied = "#7aa2f7"
+theme.taglist_fg_urgent = "#f7768e"
 
 -- theme.taglist_shape = gears.shape.circle
 theme.taglist_spacing = 10

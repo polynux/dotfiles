@@ -133,7 +133,7 @@ local batteryOptions = {
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({ "", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "", "", "", "", }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -566,6 +566,10 @@ client.connect_signal("request::titlebars", function(c)
     }
 
     awful.titlebar.hide(c)
+
+    -- c.shape = function(cr,w,h)
+    --     gears.shape.rounded_rect(cr,w,h,10)
+    -- end
 end)
 
 client.connect_signal("property::floating", function(c)
