@@ -14,3 +14,7 @@
 [".config/awesome/vicious"]
     type = "git-repo"
     url = "https://github.com/vicious-widgets/vicious.git"
+
+[".config/awesome/nice"]
+    type = "git-repo"
+    url = "https://github.com/raven2cz/awesome-wm-nice"

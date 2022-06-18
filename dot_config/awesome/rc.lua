@@ -17,9 +17,12 @@ local naughty = require("naughty")
 local ruled = require("ruled")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local battery = require("modules.battery")
 
+local vicious = require("vicious")
+local bat_widget = require("awesome-wm-widgets.battery-widget.battery")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
+
+local nice = require("nice")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -40,6 +43,15 @@ end)
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
+
+nice({
+    no_titlebar_maximized = true,
+    titlebar_items = {
+        left = {},
+        middle = "title",
+        right = {"minimize", "maximize", "close"},
+    }
+})
 
 -- This is used later as the default terminal and editor to run.
 local terminal = "terminator"
@@ -125,13 +137,22 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock()
 
--- Create the wibox
+batwidget = wibox.widget.progressbar()
 
-local batteryOptions = {
-    critical_level = 0.15,
-    critical_color = "#ff0000",
-    charging_color = "#00ff00"
-}
+-- Create wibox with batwidget
+batbox = wibox.container.margin(
+    wibox.widget{ { max_value = 1, widget = batwidget,
+                    border_width = 1, border_color = "#000000",
+                    color = beautiful.bg_normal } ,
+                  forced_height = 16, forced_width = 12,
+                  direction = 'east', color = beautiful.fg_urgent,
+                  layout = wibox.container.rotate },
+    1, 1, 3, 3)
+
+-- Register battery widget
+vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT1")
+
+-- Create the wibox
 
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
@@ -207,7 +228,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     widget_type = 'icon',
                     icon_dir = gears.filesystem.get_configuration_dir() .. "assets/icons/"
                 },
-                battery(batteryOptions),
+                bat_widget,
+                batbox,
                 mykeyboardlayout,
                 wibox.widget.systray(),
                 mytextclock,
@@ -216,6 +238,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
         },
     }
 end)
+
+
 
 -- }}}
 
@@ -535,47 +559,51 @@ end)
 
 -- {{{ Titlebars
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
+-- client.connect_signal("request::titlebars", function(c)
+--     -- buttons for the titlebar
+--     local buttons = {
+--         awful.button({}, 1, function()
+--             c:activate { context = "titlebar", action = "mouse_move" }
+--         end),
+--         awful.button({}, 3, function()
+--             c:activate { context = "titlebar", action = "mouse_resize" }
+--         end),
+--     }
+--
+--     awful.titlebar(c).widget = {
+--         { -- Left
+--             awful.titlebar.widget.iconwidget(c),
+--             buttons = buttons,
+--             layout  = wibox.layout.fixed.horizontal
+--         },
+--         { -- Middle
+--             { -- Title
+--                 align  = "center",
+--                 widget = awful.titlebar.widget.titlewidget(c)
+--             },
+--             buttons = buttons,
+--             layout  = wibox.layout.flex.horizontal
+--         },
+--         { -- Right
+--             awful.titlebar.widget.floatingbutton(c),
+--             awful.titlebar.widget.maximizedbutton(c),
+--             awful.titlebar.widget.stickybutton(c),
+--             awful.titlebar.widget.ontopbutton(c),
+--             awful.titlebar.widget.closebutton(c),
+--             layout = wibox.layout.fixed.horizontal()
+--         },
+--         layout = wibox.layout.align.horizontal
+--     }
+--
+--     awful.titlebar.hide(c)
+--
+--     -- c.shape = function(cr,w,h)
+--     --     gears.shape.rounded_rect(cr,w,h,10)
+--     -- end
+-- end)
+
 client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = {
-        awful.button({}, 1, function()
-            c:activate { context = "titlebar", action = "mouse_move" }
-        end),
-        awful.button({}, 3, function()
-            c:activate { context = "titlebar", action = "mouse_resize" }
-        end),
-    }
-
-    awful.titlebar(c).widget = {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton(c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton(c),
-            awful.titlebar.widget.ontopbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-
     awful.titlebar.hide(c)
-
-    -- c.shape = function(cr,w,h)
-    --     gears.shape.rounded_rect(cr,w,h,10)
-    -- end
 end)
 
 client.connect_signal("property::floating", function(c)
