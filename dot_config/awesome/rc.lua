@@ -139,15 +139,33 @@ local mytextclock = wibox.widget.textclock()
 
 batwidget = wibox.widget.progressbar()
 
--- Create wibox with batwidget
-batbox = wibox.container.margin(
-    wibox.widget{ { max_value = 1, widget = batwidget,
-                    border_width = 1, border_color = "#000000",
-                    color = beautiful.bg_normal } ,
-                  forced_height = 16, forced_width = 12,
-                  direction = 'east', color = beautiful.fg_urgent,
-                  layout = wibox.container.rotate },
-    1, 1, 3, 3)
+local batbox = wibox.widget{
+    {
+        widget = wibox.widget.textbox(),
+        text = "",
+        align = "center",
+        valign = "center",
+        font = "Caskaydia Cove NF 36",
+    },
+    {
+        max_value = 1,
+        widget = batwidget,
+        color = beautiful.bg_normal,
+        forced_width = 32,
+        forced_height = 6,
+        paddings = 0,
+        margins = {
+            left = 5,
+            right = 7,
+            top = 11,
+            bottom = 12,
+        },
+        background_color = beautiful.bg_normal,
+        color = beautiful.fg_normal,
+        border_width = 0,
+    },
+    layout = wibox.layout.stack
+}
 
 -- Register battery widget
 vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT1")

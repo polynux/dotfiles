@@ -18,7 +18,7 @@ theme.font                = "Roboto 12"
 
 theme.bg_normal   = "#1a1b26"
 -- theme.bg_focus    = "#a9b1d6"
--- theme.bg_urgent   = "#f7768e"
+theme.bg_urgent   = "#f7768e"
 -- theme.bg_minimize = "#444444"
 theme.bg_systray  = theme.bg_normal
 
@@ -88,6 +88,8 @@ theme.menu_icon = gfs.get_configuration_dir() .. "assets/arch.png"
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
+
+theme.bg_widget = "#a9b1d6"
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "default/titlebar/close_normal.png"
