@@ -61,6 +61,9 @@ theme.taglist_font = "Caskaydia Cove NF 18"
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
+theme.fg_widget = "#1a1b26"
+theme.bat_widget_bg = "#9ece6a"
+
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
@@ -88,8 +91,6 @@ theme.menu_icon = gfs.get_configuration_dir() .. "assets/arch.png"
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
-
-theme.bg_widget = "#a9b1d6"
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "default/titlebar/close_normal.png"

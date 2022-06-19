@@ -19,7 +19,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 local vicious = require("vicious")
-local bat_widget = require("awesome-wm-widgets.battery-widget.battery")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local nice = require("nice")
@@ -139,7 +139,8 @@ local mytextclock = wibox.widget.textclock()
 
 batwidget = wibox.widget.progressbar()
 
-local batbox = wibox.widget{
+local bat_widget = wibox.container.margin(
+    wibox.widget{
     {
         widget = wibox.widget.textbox(),
         text = "",
@@ -150,7 +151,7 @@ local batbox = wibox.widget{
     {
         max_value = 1,
         widget = batwidget,
-        color = beautiful.bg_normal,
+        color = beautiful.fg_widget,
         forced_width = 32,
         forced_height = 6,
         paddings = 0,
@@ -160,12 +161,15 @@ local batbox = wibox.widget{
             top = 11,
             bottom = 12,
         },
-        background_color = beautiful.bg_normal,
-        color = beautiful.fg_normal,
+        background_color = "#00000000",
+        -- background_color = beautiful.bg_normal,
+        color = beautiful.fg_widget,
         border_width = 0,
     },
-    layout = wibox.layout.stack
-}
+    layout = wibox.layout.stack,
+}, 3, 3, 0, 0)
+
+local bat_color = wibox.container.background(bat_widget, beautiful.bat_widget_bg, gears.shape.rounded_rect)
 
 -- Register battery widget
 vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT1")
@@ -246,8 +250,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     widget_type = 'icon',
                     icon_dir = gears.filesystem.get_configuration_dir() .. "assets/icons/"
                 },
-                bat_widget,
-                batbox,
+                battery_widget,
+                bat_color,
                 mykeyboardlayout,
                 wibox.widget.systray(),
                 mytextclock,
