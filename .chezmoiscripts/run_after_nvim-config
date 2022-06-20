@@ -1,0 +1,2 @@
+#!/bin/sh
+ln -s "$(chezmoi source-path)/lua/custom" "$HOME/.config/nvim/lua/custom"
