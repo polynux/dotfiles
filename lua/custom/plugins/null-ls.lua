@@ -13,14 +13,16 @@ local sources = {
    b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
 
     b.diagnostics.golangci_lint,
-    b.formatting.golangci_lint,
+    -- b.formatting.golangci_lint,
 
    -- Shell
    b.formatting.shfmt,
    b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 }
 
-local setup = {
+local M = {}
+
+M.setup = function()
    null_ls.setup {
       debug = true,
       sources = sources,
@@ -32,6 +34,6 @@ local setup = {
          end
       end,
    }
-}
+end
 
-return setup
+return M
