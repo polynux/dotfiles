@@ -18,6 +18,7 @@ M.options = {
       opt.textwidth = 119
       opt.colorcolumn = "120"
       vim.cmd "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | wincmd p | enew | execute 'cd '.argv()[0] | endif "
+        opt.guifont = "CaskaydiaCove NF:h16"
    end
 }
 

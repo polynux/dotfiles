@@ -43,6 +43,9 @@ alias cme="cm edit"
 alias cma="cm apply -v"
 alias cmd="cm diff"
 alias vid="neovide"
+if uname -r | grep 'microsoft' > /dev/null; then
+    alias vid="neovide.exe --wsl"
+fi
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
