@@ -8,4 +8,5 @@ return {
     },
     ["blueyed/smarty.vim"] = {},
     ["alker0/chezmoi.vim"] = {},
+    ["dag/vim-fish"] = {},
 }
