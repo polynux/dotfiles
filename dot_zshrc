@@ -37,16 +37,14 @@ alias ga="git add"
 alias gaa="git add --all"
 alias gst="git status"
 alias gpr="git pull --rebase"
+
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
+
 alias cm="chezmoi"
-alias cmcd="cd $(cm source-path)"
+alias cmcd="cd $(chezmoi source-path)"
 alias cme="cm edit"
 alias cma="cm apply -v"
 alias cmd="cm diff"
-alias vid="neovide $1 &"
-if uname -r | grep 'microsoft' > /dev/null; then
-    alias vid="neovide.exe --wsl $1 &"
-fi
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
@@ -62,12 +60,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-function mkdir_and_cd() {
+# mkdir and cd in dir
+function mkcd() {
     mkdir -p "$1"
     cd $1
 }
 
-alias mkc=mkdir_and_cd
+# neovide binding
+function vid() {
+    if uname -r | grep 'microsoft' > /dev/null; then
+        neovide.exe --wsl $@ &
+    else
+        neovide $@ &
+    fi
+}
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
