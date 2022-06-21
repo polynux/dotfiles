@@ -3,6 +3,9 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+local screen = screen
+local awesome = awesome
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -151,7 +154,6 @@ local bat_widget = wibox.container.margin(
     {
         max_value = 1,
         widget = batwidget,
-        color = beautiful.fg_widget,
         forced_width = 32,
         forced_height = 6,
         paddings = 0,
