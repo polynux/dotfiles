@@ -140,9 +140,17 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock()
 
+local styleWidget = function(widget, color)
+    return wibox.container.background(
+        wibox.container.margin(widget, 3, 3, 0, 0),
+        color,
+        gears.shape.rounded_rect
+    )
+end
+
 batwidget = wibox.widget.progressbar()
 
-local bat_widget = wibox.container.margin(
+local bat_widget = styleWidget(
     wibox.widget{
     {
         widget = wibox.widget.textbox(),
@@ -169,9 +177,8 @@ local bat_widget = wibox.container.margin(
         border_width = 0,
     },
     layout = wibox.layout.stack,
-}, 3, 3, 0, 0)
-
-local bat_color = wibox.container.background(bat_widget, beautiful.bat_widget_bg, gears.shape.rounded_rect)
+    }, beautiful.bat_widget_bg
+)
 
 -- Register battery widget
 vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT1")
@@ -253,7 +260,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     icon_dir = gears.filesystem.get_configuration_dir() .. "assets/icons/"
                 },
                 battery_widget,
-                bat_color,
+                bat_widget,
                 mykeyboardlayout,
                 wibox.widget.systray(),
                 mytextclock,
@@ -305,8 +312,11 @@ awful.keyboard.append_global_keybindings({
         { description = "show the menubar", group = "launcher" }),
     awful.key({ modkey }, "v", function() awful.spawn("copyq menu") end,
         { description = "Open clipboard", group = "awesome" }),
-    awful.key({ modkey, "Mod1" }, "l", function() awful.spawn(gears.filesystem.get_configuration_dir() .. "scripts/lock.sh") end,
+    -- awful.key({ modkey, "Mod1" }, "l", function() awful.spawn(gears.filesystem.get_configuration_dir() .. "scripts/lock.sh") end,
+    --     { description = "Lock screen", group = "awesome" }),
+    awful.key({ modkey, "Mod1" }, "l", function() awful.spawn("betterlockscreen -q -l") end,
         { description = "Lock screen", group = "awesome" }),
+
     awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("xbacklight -dec 5") end,
         {}),
     awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("xbacklight -inc 5") end,
