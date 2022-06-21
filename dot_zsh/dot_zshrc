@@ -5,10 +5,9 @@ antidote load
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 autoload -Uz promptinit && promptinit && prompt powerlevel10k
 
-export ZCONFIG="$HOME/.zsh"
+export ZCONFIG="$HOME/dotfiles/zsh"
 export FZF_DIR="$ZCONFIG/fzf"
 export EDITOR="nvim"
-export GUI_EDITOR="vid" # neovide
 export FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name '\''*.tags'\'' -printf '\''%P\n'\'
 
 PATH="$HOME/.local/bin:$HOME/.local/share/pnpm:/usr/local/go/bin:$PATH"
@@ -38,15 +37,6 @@ alias gaa="git add --all"
 alias gst="git status"
 alias gpr="git pull --rebase"
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
-alias cm="chezmoi"
-alias cmcd="cd $(cm source-path)"
-alias cme="cm edit"
-alias cma="cm apply -v"
-alias cmd="cm diff"
-alias vid="neovide $1 &"
-if uname -r | grep 'microsoft' > /dev/null; then
-    alias vid="neovide.exe --wsl $1 &"
-fi
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
@@ -55,7 +45,7 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
 fi
 
 # pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
+export PNPM_HOME="/home/polynux/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 export NVM_DIR="$HOME/.nvm"
