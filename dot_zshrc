@@ -17,6 +17,7 @@ source "$HOME/.cargo/env"
 source "$FZF_DIR/completion.zsh"
 source "$FZF_DIR/key-bindings.zsh"
 source "$ZCONFIG/keybindings.zsh"
+source "$ZCONFIG/bw/bw-completions.zsh"
 
 if [[ -s "/usr/bin/lsd" ]]; then
     alias ls="lsd"
