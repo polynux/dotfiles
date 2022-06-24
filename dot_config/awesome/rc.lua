@@ -358,6 +358,15 @@ awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86AudioMute", function()
 		awful.spawn("amixer -D pulse set Master 1+ toggle")
 	end, {}),
+	awful.key({}, "XF86AudioPlay", function()
+		awful.spawn("playerctl play-pause")
+	end, {}),
+	awful.key({}, "XF86AudioNext", function()
+		awful.spawn("playerctl next")
+	end, {}),
+	awful.key({}, "XF86AudioPrev", function()
+		awful.spawn("playerctl previous")
+	end, {}),
 	awful.key({ modkey }, "F12", function()
 		awful.util.spawn("rofi -show drun")
 	end, { description = "rofi", group = "function keys" }),
