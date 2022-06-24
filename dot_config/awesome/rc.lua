@@ -372,6 +372,9 @@ awful.keyboard.append_global_keybindings({
 			)
 		)
 	end, { description = "show dmenu", group = "hotkeys" }),
+	awful.key({ modkey }, "x", function()
+		awful.util.spawn("archlinux-logout")
+	end, { description = "exit", group = "hotkeys" }),
 })
 
 -- Tags related keybindings
