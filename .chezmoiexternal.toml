@@ -18,3 +18,7 @@
 [".config/awesome/nice"]
     type = "git-repo"
     url = "https://github.com/raven2cz/awesome-wm-nice"
+
+['.config/awesome/keyboard_layout']
+    type = 'git-repo'
+    url = 'https://github.com/echuraev/keyboard_layout'

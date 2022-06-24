@@ -26,6 +26,7 @@ local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local nice = require("nice")
+local keyboard_layout = require("keyboard_layout")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -144,6 +145,22 @@ end)
 
 -- Keyboard map indicator and switcher
 local mykeyboardlayout = awful.widget.keyboardlayout()
+
+local kbdcfg = keyboard_layout.kbdcfg({ type = "tui" })
+
+kbdcfg.add_primary_layout("English", "us", "us")
+kbdcfg.add_primary_layout("Français", "fr", "fr")
+kbdcfg.bind()
+
+-- Mouse bindings
+kbdcfg.widget:buttons(awful.util.table.join(
+	awful.button({}, 1, function()
+		kbdcfg.switch_next()
+	end),
+	awful.button({}, 3, function()
+		kbdcfg.menu:toggle()
+	end)
+))
 
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock()
@@ -286,7 +303,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				}),
 				battery_widget,
 				bat_widget,
-				mykeyboardlayout,
+				-- mykeyboardlayout,
+				kbdcfg.widget,
 				wibox.widget.systray(),
 				mytextclock,
 				s.mylayoutbox,
