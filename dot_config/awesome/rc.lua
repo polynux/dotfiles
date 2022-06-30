@@ -27,6 +27,7 @@ local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 
 local nice = require("nice")
 local keyboard_layout = require("keyboard_layout")
+local foggy = require("foggy")
 
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -402,6 +403,12 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey }, "x", function()
 		awful.util.spawn("archlinux-logout")
 	end, { description = "exit", group = "hotkeys" }),
+	awful.key({ modkey }, "e", function()
+		awful.util.spawn("pcmanfm")
+	end, { description = "Open file explorer", group = "launcher" }),
+	awful.key({ modkey }, "p", function()
+		foggy.menu()
+	end, { description = "Open screen arrangement", group = "launcher" }),
 })
 
 -- Tags related keybindings

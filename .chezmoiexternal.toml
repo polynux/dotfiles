@@ -22,3 +22,7 @@
 ['.config/awesome/keyboard_layout']
     type = 'git-repo'
     url = 'https://github.com/echuraev/keyboard_layout'
+
+['.config/awesome/foggy']
+    type = 'git-repo'
+    url = 'https://gitlab.com/k3rni/foggy'
