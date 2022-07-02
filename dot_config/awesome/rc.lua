@@ -336,7 +336,7 @@ awful.keyboard.append_global_keybindings({
 	end, { description = "show main menu", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
-	awful.key({ modkey }, "x", function()
+	awful.key({ modkey, "Shift" }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
 			textbox = awful.screen.focused().mypromptbox.widget,
