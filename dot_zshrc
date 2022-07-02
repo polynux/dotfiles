@@ -30,7 +30,6 @@ alias svim="/usr/bin/vim"
 alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 alias arn="ssh -A guillaume.dorce@arena.bms.lan"
 alias ta="tmux a"
-alias npm="pnpm"
 alias gw="gulp watch"
 alias colors="$HOME/.config/scripts/colors.sh"
 
