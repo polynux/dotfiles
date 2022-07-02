@@ -25,4 +25,4 @@
 
 ['.config/awesome/foggy']
     type = 'git-repo'
-    url = 'https://gitlab.com/k3rni/foggy'
+    url = 'https://gitlab.com/k3rni/foggy.git'
