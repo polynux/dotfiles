@@ -10,4 +10,5 @@ return {
 	["alker0/chezmoi.vim"] = {},
 	["dag/vim-fish"] = {},
 	["elkowar/yuck.vim"] = {},
+	["neoclide/coc.nvim"] = { branch = "release" },
 }
