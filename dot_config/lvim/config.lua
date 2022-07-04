@@ -82,6 +82,7 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+lvim.lsp.automatic_servers_installation = true
 
 -- generic LSP settings
 
@@ -274,3 +275,8 @@ opt.colorcolumn = "120"
 opt.guifont = "CaskaydiaCove NF:h16"
 
 lvim.builtin.treesitter.rainbow.enable = true
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+    { command = "prettier", filetypes = { "scss" } },
+}
