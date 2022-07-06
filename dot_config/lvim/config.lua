@@ -10,7 +10,7 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "catppuccin"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -162,8 +162,8 @@ lvim.plugins = {
         event = "BufRead",
         config = function()
             require("hop").setup()
-            vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-            vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+            -- vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+            -- vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
         end,
     },
     {
@@ -280,3 +280,4 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
     { command = "prettier", filetypes = { "scss" } },
 }
+
