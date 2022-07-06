@@ -7,7 +7,7 @@ autoload -Uz promptinit && promptinit && prompt powerlevel10k
 
 export ZCONFIG="$HOME/.zsh"
 export FZF_DIR="$ZCONFIG/fzf"
-export EDITOR="nvim"
+export EDITOR="lvim"
 export GUI_EDITOR="vid" # neovide
 export FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name '\''*.tags'\'' -printf '\''%P\n'\'
 
@@ -25,7 +25,7 @@ fi
 alias la="ls -a"
 alias l="ls -la"
 alias ll="ls -l"
-alias vim="nvim"
+alias vim="lvim"
 alias svim="/usr/bin/vim"
 alias rsc="ssh -A guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 alias arn="ssh -A guillaume.dorce@arena.bms.lan"
@@ -45,6 +45,7 @@ alias cmcd="cd $(chezmoi source-path)"
 alias cme="cm edit"
 alias cma="cm apply -v"
 alias cmd="cm diff"
+alias cmu="cm update"
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s`
@@ -59,6 +60,10 @@ export PATH="$PNPM_HOME:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Bun
+export BUN_INSTALL="/home/polynux/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # mkdir and cd in dir
 function mkcd() {
