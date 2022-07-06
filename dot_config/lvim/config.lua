@@ -275,6 +275,9 @@ opt.colorcolumn = "120"
 opt.guifont = "CaskaydiaCove NF:h16"
 
 lvim.builtin.treesitter.rainbow.enable = true
+lvim.builtin.treesitter.indent = {
+    enable = false
+}
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
