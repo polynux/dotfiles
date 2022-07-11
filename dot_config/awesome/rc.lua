@@ -763,7 +763,8 @@ local autorunApps = {
     "picom",
     "nm-applet",
     "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
-    "optimus-manager-qt"
+    "optimus-manager-qt",
+    "birdtray"
 }
 if autorun then
     for app = 1, #autorunApps do
