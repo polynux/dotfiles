@@ -62,6 +62,7 @@ nice({
 local terminal = "terminator"
 local editor = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
+local browser = "firefox-developer-edition"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -397,6 +398,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey }, "e", function()
         awful.util.spawn("pcmanfm")
     end, { description = "Open file explorer", group = "launcher" }),
+    awful.key({ modkey }, "f", function()
+        awful.util.spawn(browser)
+    end, { description = "Open browser", group = "launcher" }),
     awful.key({ modkey }, "p", function()
         foggy.menu()
     end, { description = "Open screen arrangement", group = "launcher" }),
@@ -758,7 +762,8 @@ local autorunApps = {
     "flameshot",
     "picom",
     "nm-applet",
-    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+    "optimus-manager-qt"
 }
 if autorun then
     for app = 1, #autorunApps do
