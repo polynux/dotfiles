@@ -169,12 +169,6 @@ lvim.plugins = {
     {
         'wfxr/minimap.vim',
         run = "cargo install --locked code-minimap",
-        -- cmd = {"Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight"},
-        config = function()
-            vim.cmd("let g:minimap_width = 10")
-            vim.cmd("let g:minimap_auto_start = 0")
-            vim.cmd("let g:minimap_auto_start_win_enter = 0")
-        end,
     },
     {
         "windwp/nvim-ts-autotag",
@@ -281,6 +275,6 @@ lvim.builtin.treesitter.indent = {
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-    { command = "prettier", filetypes = { "scss" } },
+    { command = "prettier", filetypes = { "scss", "js", "css", "ts", "jsx" } },
 }
 
