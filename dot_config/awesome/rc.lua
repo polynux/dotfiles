@@ -765,7 +765,8 @@ local autorunApps = {
     "nm-applet",
     "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
     "optimus-manager-qt",
-    "birdtray"
+    "birdtray",
+    "blueman-applet"
 }
 if autorun then
     for app = 1, #autorunApps do
