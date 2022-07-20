@@ -237,6 +237,7 @@ lvim.plugins = {
     { "alker0/chezmoi.vim" },
     { "dag/vim-fish" },
     { "elkowar/yuck.vim" },
+    { "github/copilot.vim" },
 
 }
 
@@ -277,4 +278,3 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
     { command = "prettier", filetypes = { "scss", "js", "css", "ts", "jsx" } },
 }
-
