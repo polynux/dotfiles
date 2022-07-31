@@ -399,7 +399,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey }, "e", function()
         awful.util.spawn("pcmanfm")
     end, { description = "Open file explorer", group = "launcher" }),
-    awful.key({ modkey }, "f", function()
+    awful.key({ modkey }, "b", function()
         awful.util.spawn(browser)
     end, { description = "Open browser", group = "launcher" }),
     awful.key({ modkey }, "p", function()
