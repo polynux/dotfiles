@@ -13,6 +13,10 @@ typeset -A key
         PageDown   "${terminfo[knp]}"
     )
 
+autoload -U select-word-style
+select-word-style bash
+export WORDCHARS=''
+
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 bindkey "^[[1;5C" forward-word
@@ -27,6 +31,3 @@ autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-
-autoload -U select-word-style
-select-word-style bash
