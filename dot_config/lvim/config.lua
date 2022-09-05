@@ -23,6 +23,10 @@ lvim.keys.normal_mode["<esc>"] = ":noh<cr>"
 lvim.keys.normal_mode["gt"] = ":tabn<cr>"
 lvim.keys.normal_mode["gT"] = ":tabp<cr>"
 lvim.keys.normal_mode[","] = "gt"
+lvim.keys.normal_mode["<C-a>"] = "0i"
+lvim.keys.normal_mode["<C-e>"] = "$a"
+
+
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -57,6 +61,13 @@ lvim.keys.normal_mode[","] = "gt"
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 -- }
+
+lvim.builtin.which_key.mappings["S"] = {
+    name = "Session",
+    c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+    l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+    Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -211,11 +222,11 @@ lvim.plugins = {
     },
     {
         "tpope/vim-surround",
-        keys = { "c", "d", "y" }
+        keys = { "c", "d", "y" },
         -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
-        -- setup = function()
-        --  vim.o.timeoutlen = 500
-        -- end
+        setup = function()
+         vim.o.timeoutlen = 500
+        end
     },
     {
         "karb94/neoscroll.nvim",
@@ -241,6 +252,17 @@ lvim.plugins = {
     { "dag/vim-fish" },
     { "elkowar/yuck.vim" },
     { "github/copilot.vim" },
+    {
+        "folke/persistence.nvim",
+        event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        module = "persistence",
+        config = function()
+            require("persistence").setup {
+                dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+                options = { "buffers", "curdir", "tabpages", "winsize" },
+            }
+        end,
+    },
 
 }
 
