@@ -19,8 +19,10 @@ lvim.colorscheme = "catppuccin"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-
 lvim.keys.normal_mode["<esc>"] = ":noh<cr>"
+lvim.keys.normal_mode["gt"] = ":tabn<cr>"
+lvim.keys.normal_mode["gT"] = ":tabp<cr>"
+lvim.keys.normal_mode[","] = "gt"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
