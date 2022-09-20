@@ -17,6 +17,7 @@ alias ga="git add"
 alias gaa="git add --all"
 alias gst="git status"
 alias gpr="git pull --rebase"
+alias lg="lazygit"
 
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 
