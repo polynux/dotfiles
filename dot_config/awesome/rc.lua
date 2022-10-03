@@ -140,9 +140,9 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local kbdcfg = keyboard_layout.kbdcfg({ type = "tui" })
 
+kbdcfg.add_primary_layout("Français", "fr", "fr")
 kbdcfg.add_primary_layout("English", "us", "us")
 kbdcfg.add_primary_layout("English", "us-intl", "us_intl")
-kbdcfg.add_primary_layout("Français", "fr", "fr")
 kbdcfg.bind()
 
 -- Mouse bindings
