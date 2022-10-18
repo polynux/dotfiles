@@ -36,6 +36,15 @@ export PATH="$PNPM_HOME:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+#set PATH so it includes Android-Sdk if it exists
+if [ -d "$HOME/Android-Sdk" ] ; then
+    ANDROID_HOME="$HOME/Android-Sdk" #location same as step 3
+    PATH="$ANDROID_HOME/emulator:$PATH"
+    PATH="$ANDROID_HOME/cmdline-tools/7.0:$PATH"
+    PATH="$ANDROID_HOME/cmdline-tools/7.0/bin:$PATH"
+    PATH="$ANDROID_HOME/platform-tools:$PATH"
+fi
+
 # mkdir and cd in dir
 function mkcd() {
     mkdir -p "$1"
