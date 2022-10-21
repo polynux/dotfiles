@@ -20,14 +20,6 @@ source "$ZCONFIG/keybindings.zsh"
 source "$ZCONFIG/bw/bw-completions.zsh"
 source "$ZCONFIG/alias.zsh"
 
-if [ -z "$(pgrep ssh-agent)" ]; then
-   rm -rf /tmp/ssh-*
-   eval $(ssh-agent -s) > /dev/null
-else
-   export SSH_AGENT_PID=$(pgrep ssh-agent)
-   export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
-fi
-
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
