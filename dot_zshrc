@@ -20,11 +20,12 @@ source "$ZCONFIG/keybindings.zsh"
 source "$ZCONFIG/bw/bw-completions.zsh"
 source "$ZCONFIG/alias.zsh"
 
-
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s`
-    ssh-add
-	clear
+if [ -z "$(pgrep ssh-agent)" ]; then
+   rm -rf /tmp/ssh-*
+   eval $(ssh-agent -s) > /dev/null
+else
+   export SSH_AGENT_PID=$(pgrep ssh-agent)
+   export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
 fi
 
 # pnpm
