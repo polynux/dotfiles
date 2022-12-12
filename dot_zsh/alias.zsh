@@ -4,7 +4,7 @@ fi
 alias la="ls -a"
 alias l="ls -la"
 alias ll="ls -l"
-alias vim="lvim"
+alias vim="nvim"
 alias svim="/usr/bin/vim"
 alias rsc="ssh -At guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 alias arn="ssh -At guillaume.dorce@arena.bms.lan bash"
