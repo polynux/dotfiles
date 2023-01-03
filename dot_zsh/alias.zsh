@@ -22,6 +22,9 @@ alias lg="lazygit"
 
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 
+alias bat="batcat"
+alias batl="tail -f | batcat -l log"
+
 alias cm="chezmoi"
 alias cmcd="cd $(chezmoi source-path)"
 alias cme="cm edit"
