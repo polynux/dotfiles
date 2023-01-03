@@ -53,6 +53,10 @@ function vid() {
     fi
 }
 
+function batl() {
+    tail -f $1 | batcat --paging=never -l log
+}
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
