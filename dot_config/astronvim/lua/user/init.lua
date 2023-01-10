@@ -3,6 +3,7 @@ local config = {
     init = {
       ["github/copilot.vim"] = {},
       ["catppuccin/nvim"] = { as = "catppuccin" },
+      ["nelsyeung/twig.vim"] = {},
     }
   },
   lsp = {
