@@ -1,8 +1,7 @@
 local config = {
     plugins = {
         init = {
-            {
-                "zbirenbaum/copilot.lua",
+            ["zbirenbaum/copilot.lua"] = {
                 cmd = "Copilot",
                 event = { "VimEnter" },
                 config = function ()
@@ -14,17 +13,17 @@ local config = {
                     end, 100)
                 end,
             },
-            {
-                "zbirenbaum/copilot-cmp",
+            ["zbirenbaum/copilot-cmp"] = {
                 after = { "copilot.lua" },
                 config = function()
                     require("copilot_cmp").setup()
+                    astronvim.add_user_cmp_source "copilot"
                 end
             },
             ["catppuccin/nvim"] = { as = "catppuccin" },
             ["nelsyeung/twig.vim"] = {},
             ["blueyed/smarty.vim"] = {},
-        }
+        },
     },
     lsp = {
         formatting = {
