@@ -29,7 +29,7 @@ local config = {
         }
     },
     lsp = { formatting = { format_on_save = false } },
-    options = { opt = { wrap = true, textwidth = 80 } },
+    options = { opt = { wrap = true, textwidth = 80, colorcolumn = 80, } },
     mappings = {
         i = {
             -- ["<C>Enter"] = {
