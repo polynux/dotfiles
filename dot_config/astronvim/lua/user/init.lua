@@ -33,7 +33,8 @@ local config = {
                         -- Configuration here, or leave empty to use defaults
                     })
                 end
-            }
+            },
+            ["roobert/tailwindcss-colorizer-cmp.nvim"] = {},
         }
     },
     lsp = { formatting = { format_on_save = false } },
@@ -44,6 +45,10 @@ local config = {
             --     function() require("copilot.suggestion").accept() end,
             --     desc = "Accept copilot suggestion"
             -- }
+        },
+        n = {
+            ["<leader>sf"] = { function() require("telescope.builtin").find_files() end, desc = "Search files" },
+            ["<leader>sw"] = { function() require("telescope.builtin").live_grep() end, desc = "Search words" },
         }
     }
 }
