@@ -58,7 +58,11 @@ local config = {
                     require("telescope.builtin").live_grep()
                 end,
                 desc = "Search words"
-            }
+            },
+            ["<leader>y"] = { "\"+y", desc = "System clipboard"},
+        },
+        v = {
+            ["<leader>y"] = { "\"+y", desc = "System clipboard"},
         }
     },
     highlights = {
