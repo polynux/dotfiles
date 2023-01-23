@@ -38,7 +38,15 @@ local config = {
         }
     },
     lsp = { formatting = { format_on_save = false } },
-    options = { opt = { wrap = true, textwidth = 80, colorcolumn = "80" } },
+    options = {
+        opt = {
+            wrap = true,
+            textwidth = 80,
+            colorcolumn = "80",
+            foldmethod = "expr",
+            foldexpr = "nvim_treesitter#foldexpr()"
+        }
+    },
     mappings = {
         i = {
             -- ["<C>Enter"] = {
@@ -59,11 +67,9 @@ local config = {
                 end,
                 desc = "Search words"
             },
-            ["<leader>y"] = { "\"+y", desc = "System clipboard"},
+            ["<leader>y"] = { "\"+y", desc = "System clipboard" }
         },
-        v = {
-            ["<leader>y"] = { "\"+y", desc = "System clipboard"},
-        }
+        v = { ["<leader>y"] = { "\"+y", desc = "System clipboard" } }
     },
     highlights = {
         -- set highlights for all themes
