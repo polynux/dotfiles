@@ -44,7 +44,8 @@ local config = {
             textwidth = 80,
             colorcolumn = "80",
             foldmethod = "expr",
-            foldexpr = "nvim_treesitter#foldexpr()"
+            foldexpr = "nvim_treesitter#foldexpr()",
+            nofoldenable = true,
         }
     },
     mappings = {
