@@ -45,15 +45,15 @@ local config = {
             colorcolumn = "80",
             foldmethod = "expr",
             foldexpr = "nvim_treesitter#foldexpr()",
-            nofoldenable = true,
+            foldenable = false,
         }
     },
     mappings = {
         i = {
-            -- ["<C>Enter"] = {
-            --     function() require("copilot.suggestion").accept() end,
-            --     desc = "Accept copilot suggestion"
-            -- }
+            ["<S-Tab>"] = {
+                function() require("copilot.suggestion").accept() end,
+                desc = "Accept copilot suggestion"
+            }
         },
         n = {
             ["<leader>sf"] = {
