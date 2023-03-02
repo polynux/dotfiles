@@ -7,6 +7,8 @@ fish_add_path "$PNPM_HOME"
 fish_add_path "$HOME/.local/bin"
 fish_add_path $HOME/.cargo/bin
 
+set -gx EDITOR nvim
+
 bind \cH backward-kill-word
 bind [3\;5~ kill-word
 

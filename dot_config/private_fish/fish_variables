@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR EDITOR:nvim
 SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr_arn:ssh\x20\x2dAt\x20guillaume\x2edorce\x40arena\x2ebms\x2elan\x20bash
 SETUVAR _fish_abbr_c:code
