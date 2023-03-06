@@ -39,7 +39,7 @@ disabled = true
 style = "fg:text bg:surface1"
 fish_style_pwd_dir_length = 1
 format = "[ $path ]($style)"
-truncation_length = 1
+truncation_length = 3
 truncate_to_repo = false
 use_logical_path = true
 
