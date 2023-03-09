@@ -50,13 +50,28 @@ local config = {
             foldmethod = "expr",
             foldexpr = "nvim_treesitter#foldexpr()",
             foldenable = false,
+            showbreak = "↪ ",
+            list = true,
+            listchars = {
+                tab = "» ",
+                trail = "·",
+                extends = "»",
+                precedes = "«",
+                eol = "↲",
+                nbsp = "␣",
+            },
         }
     },
     mappings = {
         i = {
             ["<Tab>"] = {
                 function()
-                    require("copilot.suggestion").accept()
+                    if require("copilot.suggestion").is_visible() then
+                        require("copilot.suggestion").accept()
+                    else
+                        -- send tab
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", true)
+                    end
                 end,
                 desc = "Accept copilot suggestion"
             }
