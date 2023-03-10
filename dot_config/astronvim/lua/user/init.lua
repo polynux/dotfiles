@@ -34,7 +34,9 @@ local config = {
                     })
                 end
             },
-            ["roobert/tailwindcss-colorizer-cmp.nvim"] = {}
+            ["roobert/tailwindcss-colorizer-cmp.nvim"] = {},
+            ["folke/neodev.nvim"] = {},
+            ["imsnif/kdl.vim"] = {},
         },
         cmp = function (opts)
             opts.mapping['<Tab>'] = {}
