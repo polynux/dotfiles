@@ -10,8 +10,6 @@ alias svim="/usr/bin/vim"
 alias rsc="ssh -At guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 abbr -a arn ssh -At guillaume.dorce@arena.bms.lan bash
 alias sky="ssh -At guillaume.dorce@sas.sky.lan bash"
-alias ta="tmux a"
-alias tm="tmux"
 alias gw="gulp watch"
 alias colors="$HOME/.config/scripts/colors.sh"
 
@@ -39,3 +37,8 @@ alias cmu="cm update"
 
 abbr c code
 abbr cl clear
+
+# multiplexer
+alias ta="tmux a"
+alias tm="tmux"
+abbr -a z zellij
