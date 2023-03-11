@@ -8,6 +8,7 @@ return {
         enable = { "php" },
         disable = true,
       },
+      auto_install = true,
       incremental_selection = {
         enable = true,
         keymaps = {
