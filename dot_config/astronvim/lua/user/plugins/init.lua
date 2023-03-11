@@ -1,7 +1,7 @@
 return {
   {
     "catppuccin/nvim",
-    cmd = "catppuccin",
+    as = "catppuccin",
   },
   "nelsyeung/twig.vim",
   "blueyed/smarty.vim",

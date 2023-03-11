@@ -20,6 +20,7 @@ local config = {
             },
         }
     },
+    colorscheme = "catppuccin-mocha",
     mappings = {
         i = {
             ["<Tab>"] = {
