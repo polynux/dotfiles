@@ -3,7 +3,9 @@ return {
   run = ":TSUpdate",
   config = function()
     require("nvim-treesitter.configs").setup {
-      ensure_installed = { "php", "javascript", "typescript", "html", "css", "json", "lua", "bash", "yaml", "toml", "regex", "python", "c", "tsx" },
+      ensure_installed = {
+        "php", "javascript", "typescript", "html", "css", "json", "lua", "bash", "yaml", "toml", "regex", "python", "c", "tsx"
+      },
       indent = {
         enable = { "php" },
         disable = true,
