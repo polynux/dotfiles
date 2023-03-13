@@ -3,6 +3,8 @@ if status is-interactive
     # eval (zellij setup --generate-auto-start fish | string collect)
 end
 
+source ~/.config/fish/async.fish
+
 set PNPM_HOME "$HOME/.local/share/pnpm"
 fish_add_path "$PNPM_HOME"
 fish_add_path "$HOME/.local/bin"
