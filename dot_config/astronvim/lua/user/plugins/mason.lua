@@ -7,7 +7,7 @@ return {
 			"intelephense",
 			"marksman",
 			"jsonls",
-			"sqls",
+			"sqlls",
 			"lua_ls",
 			"tsserver",
 			"yamlls",

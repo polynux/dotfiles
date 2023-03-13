@@ -18,6 +18,7 @@ local config = {
                 eol = "↲",
                 nbsp = "␣",
             },
+            autochdir = true,
         }
     },
     colorscheme = "catppuccin-mocha",
