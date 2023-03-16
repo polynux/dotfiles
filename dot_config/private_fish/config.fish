@@ -5,10 +5,10 @@ end
 
 source ~/.config/fish/async.fish
 
-set PNPM_HOME "$HOME/.local/share/pnpm"
-fish_add_path "$PNPM_HOME"
+fish_add_path "$HOME/.local/share/pnpm"
 fish_add_path "$HOME/.local/bin"
 fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.config/emacs/bin
 
 set -gx EDITOR nvim
 
@@ -38,3 +38,5 @@ end
 starship init fish | source
 
 source "$HOME/.asdf/asdf.fish"
+set -gx DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
+set -gx PULSE_SERVER tcp:(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
