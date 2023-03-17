@@ -18,9 +18,8 @@ $php\
 [](fg:#212736 bg:#1d2230)\
 $time\
 [ ](fg:#1d2230)\
+$fill $hostname\
 \n($status) $character"""
-
-right_format = """$hostname"""
 
 [character]
 success_symbol = "[❯](green)"
@@ -33,6 +32,10 @@ success_symbol = ''
 format = '$symbol'
 map_symbol = true
 disabled = true
+
+[fill]
+symbol =' '
+style = 'bold'
 
 [directory]
 style = "fg:text bg:surface1"
