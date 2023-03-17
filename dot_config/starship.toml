@@ -5,7 +5,6 @@ command_timeout = 1000
 palette = "catppuccin_macchiato"
 
 format = """
-$hostname\
 $os\
 $directory\
 [](fg:surface1 bg:#394260)\
@@ -20,6 +19,8 @@ $php\
 $time\
 [ ](fg:#1d2230)\
 \n($status) $character"""
+
+right_format = """$hostname"""
 
 [character]
 success_symbol = "[❯](green)"
