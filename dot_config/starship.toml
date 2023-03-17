@@ -5,9 +5,7 @@ command_timeout = 1000
 palette = "catppuccin_macchiato"
 
 format = """
-[░▒▓](#e95420)\
-[  ](bg:#e95420 fg:#ffffff)\
-[](bg:surface1 fg:#e95420)\
+$os\
 $hostname\
 $directory\
 [](fg:surface1 bg:#394260)\
@@ -89,6 +87,17 @@ disabled = true
 ssh_only = false
 format = "[ $hostname](fg:#e3e5e5 bg:#394260)[](fg:#394260 bg:#769ff0)"
 trim_at = "-"
+
+[os]
+disabled = false
+format = "$symbol"
+style = "bold"
+
+[os.symbols]
+Ubuntu = "[░▒▓](#e95420)[ ](bg:#e95420 fg:#ffffff)[](bg:surface1 fg:#e95420)"
+Debian = "[░▒▓](#a81d33)[ ](bg:#a81d33 fg:#ffffff)[](bg:surface1 fg:#a81d33)"
+Arch = "[░▒▓](#1793d1)[ ](bg:#1793d1 fg:#ffffff)[](bg:surface1 fg:#1793d1)"
+Windows = "[░▒▓](#0078d6)[ ](bg:#0078d6 fg:#ffffff)[](bg:surface1 fg:#0078d6)"
 
 # palette tables should be last in the config ⚓️
 [palettes.catppuccin_macchiato]
