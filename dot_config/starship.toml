@@ -102,6 +102,7 @@ Ubuntu = "[░▒▓](#e95420)[ ](bg:#e95420 fg:#ffffff)[](bg:surface1 fg:
 Debian = "[░▒▓](#a81d33)[ ](bg:#a81d33 fg:#ffffff)[](bg:surface1 fg:#a81d33)"
 Arch = "[░▒▓](#1793d1)[ ](bg:#1793d1 fg:#ffffff)[](bg:surface1 fg:#1793d1)"
 Windows = "[░▒▓](#0078d6)[ ](bg:#0078d6 fg:#ffffff)[](bg:surface1 fg:#0078d6)"
+Linux = "[░▒▓](mauve)[ ](bg:mauve fg:#ffffff)[](bg:surface1 fg:mauve)"
 
 # palette tables should be last in the config ⚓️
 [palettes.catppuccin_macchiato]
