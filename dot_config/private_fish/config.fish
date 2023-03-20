@@ -3,7 +3,7 @@ if status is-interactive
     # eval (zellij setup --generate-auto-start fish | string collect)
 end
 
-source ~/.config/fish/async.fish
+# source ~/.config/fish/async.fish
 
 fish_add_path "$HOME/.local/share/pnpm"
 fish_add_path "$HOME/.local/bin"
@@ -35,7 +35,16 @@ function fish_title
     echo (fish_prompt_pwd_dir_length=1 prompt_pwd): $argv;
 end
 
+function starship_transient_prompt_func
+  starship module character
+  starship module time
+end
+function starship_transient_rprompt_func
+  starship module time
+end
 starship init fish | source
+enable_transience
+
 
 source "$HOME/.asdf/asdf.fish"
 set -gx DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
