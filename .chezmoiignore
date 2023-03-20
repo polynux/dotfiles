@@ -1,2 +1,3 @@
 lua/
 battery.lua
+.config/fish/fish_variables
