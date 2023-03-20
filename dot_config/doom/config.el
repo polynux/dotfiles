@@ -84,9 +84,29 @@
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
 
+;; 'Neotree'
 ;; open neotree with M-e
 (map! :leader
       :desc "Open neotree" "e" #'neotree-toggle)
+(setq neo-smart-open t)
+;; open file in new tab
+(setq neo-create-file-auto-open t)
+
+
+;; 'Centaurtabs'
+(use-package! centaur-tabs
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-headline-match)
+  (centaur-tabs-change-fonts "CaskaydiaCove Nerd Font" 120)
+  (centaur-tabs-group-by-projectile-project)
+  (centaur-tabs-group-buffer-groups))
+(setq centaur-tabs-set-bar 'under)
+
+
+
+;;;;;; 'Keybindings' ;;;;;;
 
 ;; save with C-s
 (global-set-key (kbd "C-s") 'save-buffer)
@@ -94,3 +114,16 @@
 ;; go to dashboard with M-d
 (map! :leader
       :desc "Open dashboard" "d" #'+doom-dashboard/open)
+;; left buffer with C-h
+(global-set-key (kbd "C-h") 'evil-window-left)
+;; right buffer with C-l
+(global-set-key (kbd "C-l") 'evil-window-right)
+;; left tab with S-h
+(define-key evil-normal-state-map (kbd "H") 'centaur-tabs-backward)
+;; right tab with S-l
+(define-key evil-normal-state-map (kbd "L") 'centaur-tabs-forward)
+
+;; indent with tab in visual mode
+(map! :v "<tab>" #'indent-rigidly-right-to-tab-stop)
+;; indent to the left with shift-tab in visual mode
+(map! :v "<backtab>" #'indent-rigidly-left-to-tab-stop)
