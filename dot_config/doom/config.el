@@ -41,6 +41,26 @@
 (setq centaur-tabs-set-bar 'under)
 
 
+;; 'Tree-sitter'
+(use-package! tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+(use-package! tree-sitter-langs
+  :ensure t
+  :after tree-sitter)
+
+
+;; 'Lanquages'
+(use-package! typescript-mode
+  :after tree-sitter
+  :config
+  (define-derived-mode typescriptreact-mode typescript-mode "TypeScript TSX")
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescriptreact-mode))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+(use-package! eglot :ensure t)
+
 
 ;;;;;; 'Keybindings' ;;;;;;
 

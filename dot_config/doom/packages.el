@@ -51,9 +51,12 @@
 
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
-
 (package! rainbow-delimiters)
-
 (package! popup-kill-ring)
-
 (package! polymode)
+(package! emmet-mode)
+(package! web-mode)
+(package! tree-sitter)
+(package! tree-sitter-langs)
+(package! typescript-mode)
+(package! eglot)
