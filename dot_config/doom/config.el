@@ -89,8 +89,7 @@
       :desc "Open neotree" "e" #'neotree-toggle)
 
 ;; save with C-s
-(map! :leader
-      :desc "Save" "s" #'save-buffer)
+(global-set-key (kbd "C-s") 'save-buffer)
 
 ;; go to dashboard with M-d
 (map! :leader
