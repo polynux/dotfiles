@@ -14,6 +14,7 @@ alias gw="gulp watch"
 alias colors="$HOME/.config/scripts/colors.sh"
 
 alias ga="git add"
+abbr -a gd git diff
 alias gaa="git add --all"
 alias gc="git commit"
 alias gcm="git commit -m"
@@ -23,6 +24,7 @@ alias gp="git push"
 alias gst="git status"
 alias gpr="git pull --rebase"
 alias lg="lazygit"
+abbr -a gui gitui
 
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 
