@@ -1,5 +1,7 @@
 local config = {
-    lsp = { formatting = { format_on_save = false } },
+    lsp = {
+        formatting = { format_on_save = false },
+    },
     options = {
         opt = {
             wrap = true,
@@ -18,7 +20,7 @@ local config = {
                 eol = "↲",
                 nbsp = "␣",
             },
-            autochdir = true,
+            -- autochdir = true,
         }
     },
     colorscheme = "catppuccin-mocha",

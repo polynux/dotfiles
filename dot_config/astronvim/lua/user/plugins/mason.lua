@@ -2,27 +2,16 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	opts = {
 		ensure_installed = {
-			"cssls",
-			"html",
-			"intelephense",
-			"marksman",
-			"jsonls",
-			"sqlls",
-			"lua_ls",
-			"tsserver",
-			"yamlls",
-		},
+			"cssls", "html", "intelephense", "marksman", "jsonls", "sqlls",
+			"lua_ls", "tsserver", "yamlls"
+		}
 	},
 }, {
 	"jay-babu/mason-null-ls.nvim",
 	opts = {
 		ensure_installed = {
-			"shellcheck",
-			"stylua",
-			"prettierd",
-			"shfmt",
-			"shellcheck",
-		},
+			"shellcheck", "stylua", "prettierd", "shfmt", "shellcheck", "phpcsfixer"
+		}
 	},
 	config = function(_, opts)
 		local mason_null_ls = require("mason-null-ls")
@@ -30,10 +19,10 @@ return {
 		mason_null_ls.setup(opts)
 		mason_null_ls.setup_handlers({
 			prettierd = function()
-				null_ls.register(
-					null_ls.builtins.formatting.prettierd.with({ extra_filetypes = { "markdown", "rmd", "qmd" } })
-				)
-			end,
+				null_ls.register(null_ls.builtins.formatting.prettierd.with({
+					extra_filetypes = { "markdown", "rmd", "qmd" }
+				}))
+			end
 		})
-	end,
+	end
 }
