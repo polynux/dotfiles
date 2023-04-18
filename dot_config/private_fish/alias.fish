@@ -28,7 +28,9 @@ abbr -a gui gitui
 
 alias awtest="Xephyr :5 -screen 1600x900 & sleep 1 ; DISPLAY=:5 awesome"
 
-alias bat="batcat"
+if type -q batcat
+    alias bat="batcat"
+end
 
 alias cm="chezmoi"
 alias cmcd="cd (chezmoi source-path)"
