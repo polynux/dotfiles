@@ -51,10 +51,24 @@ local config = {
                 end,
                 desc = "Search words"
             },
-            ["<leader>y"] = { "\"+y", desc = "System clipboard" }
+            ["<leader>y"] = { "\"+y", desc = "System clipboard" },
+            --- H for previous tab
+            ["H"] = { "[b", desc = "Previous tab" },
+            --- L for next tab
+            ["L"] = { "]b", desc = "Next tab" },
         },
         v = { ["<leader>y"] = { "\"+y", desc = "System clipboard" } }
     },
 }
+
+-- if filetype is php, set tabstop to 4
+vim.api.nvim_create_autocmd( "FileType", {
+    pattern = "php",
+    callback = function()
+        vim.bo.tabstop = 4
+        vim.bo.shiftwidth = 4
+        vim.bo.softtabstop = 4
+    end
+})
 
 return config

@@ -10,6 +10,10 @@ return {
         enable = { "php" },
         disable = true,
       },
+      highlight = {
+        enable = true,
+        disable = {},
+      },
       auto_install = true,
       incremental_selection = {
         enable = true,
