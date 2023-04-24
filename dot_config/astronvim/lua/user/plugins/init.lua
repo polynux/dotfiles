@@ -9,4 +9,5 @@ return {
   "roobert/tailwindcss-colorizer-cmp.nvim",
   "folke/neodev.nvim",
   "imsnif/kdl.vim",
+  "khaveesh/vim-fish-syntax",
 }
