@@ -17,6 +17,10 @@ bind [3\;5~ kill-word
 
 source ~/.config/fish/alias.fish
 
+for var in SSH_AUTH_SOCK ;
+    tmux setenv -g $var (tmux showenv -g $var)
+end
+
 function fish_prompt -d "Write out the prompt"
     # This shows up as USER@HOST /home/user/ >, with the directory colored
     # $USER and $hostname are set by fish, so you can just use them
