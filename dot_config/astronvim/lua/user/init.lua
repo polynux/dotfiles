@@ -56,6 +56,10 @@ local config = {
             ["H"] = { "[b", desc = "Previous tab" },
             --- L for next tab
             ["L"] = { "]b", desc = "Next tab" },
+            --- gt to go to next buffer
+            ["gt"] = { ":bnext<CR>", desc = "Next buffer" },
+            --- gT to go to previous buffer
+            ["gT"] = { ":bprevious<CR>", desc = "Previous buffer" },
         },
         v = { ["<leader>y"] = { "\"+y", desc = "System clipboard" } }
     },
