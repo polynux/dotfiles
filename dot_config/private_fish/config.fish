@@ -8,11 +8,14 @@ if status is-interactive
     fish_add_path "$HOME/.local/bin"
     fish_add_path $HOME/.cargo/bin
     fish_add_path $HOME/.config/emacs/bin
+    fish_add_path "$HOME/.local/share/bob/nvim-bin"
 
     set -gx EDITOR nvim
 
     bind \cH backward-kill-word
     bind [3\;5~ kill-word
+
+    bind \cn nvims
 
     source ~/.config/fish/alias.fish
 
