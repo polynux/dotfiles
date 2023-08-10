@@ -7,6 +7,10 @@ abbr -a l ls -la
 alias ll="ls -l"
 alias vim="nvim"
 alias svim="/usr/bin/vim"
+alias lazy="env NVIM_APPNAME=lazyvim nvim"
+alias nvchad="env NVIM_APPNAME=nvchad nvim"
+alias kick="env NVIM_APPNAME=kickvim nvim"
+
 alias rsc="ssh -At guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
 abbr -a arn ssh -At guillaume.dorce@arena.bms.lan bash
 alias sky="ssh -At guillaume.dorce@sas.sky.lan bash"
