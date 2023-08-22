@@ -10,4 +10,5 @@ return {
   "folke/neodev.nvim",
   "imsnif/kdl.vim",
   "khaveesh/vim-fish-syntax",
+  "mbbill/undotree",
 }
