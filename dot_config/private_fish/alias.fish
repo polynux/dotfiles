@@ -49,4 +49,4 @@ abbr cl clear
 # multiplexer
 alias ta="tmux a"
 alias tm="tmux"
-abbr -a z zellij
+# abbr -a z zellij
