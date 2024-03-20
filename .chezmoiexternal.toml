@@ -30,7 +30,7 @@
     type = "git-repo"
     url = "https://github.com/asdf-vm/asdf.git"
     [".asdf".clone]
-        args = ["--branch", "release-v0.11.0"]
+        args = ["--branch", "v0.14.0"]
 [".tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
