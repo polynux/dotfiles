@@ -9,6 +9,7 @@ if status is-interactive
     fish_add_path $HOME/.cargo/bin
     fish_add_path $HOME/.config/emacs/bin
     fish_add_path "$HOME/.local/share/bob/nvim-bin"
+    fish_add_path "$HOME/.go/bin"
 
     set -gx EDITOR nvim
 
@@ -58,8 +59,13 @@ if status is-interactive
     source "$HOME/.asdf/asdf.fish"
     # set -gx DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
     # set -gx PULSE_SERVER tcp:(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
-end
 
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+    # pnpm
+    set -gx PNPM_HOME "/home/polynux/.local/share/pnpm"
+    if not string match -q -- $PNPM_HOME $PATH
+      set -gx PATH "$PNPM_HOME" $PATH
+    end
+    # pnpm end
+
+    set -gx GOPATH "$HOME/.go"
+end
