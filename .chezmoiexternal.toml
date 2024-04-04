@@ -1,11 +1,6 @@
 [".antidote"]
     type = "git-repo"
     url = "https://github.com/mattmc3/antidote.git"
-[".config/nvim"]
-    type = "git-repo"
-    url = "https://github.com/AstroNvim/AstroNvim"
-    [".config/nvim".clone]
-        args = ["--depth", "1"]
 
 [".config/awesome/awesome-wm-widgets"]
     type = "git-repo"
