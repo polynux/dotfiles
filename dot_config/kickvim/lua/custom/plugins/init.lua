@@ -2,6 +2,4 @@ return {
     {
    'rcarriga/nvim-notify',
   },
-
-
 }
