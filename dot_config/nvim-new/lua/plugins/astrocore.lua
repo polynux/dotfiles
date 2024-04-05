@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -31,7 +29,22 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true,
+        -- textwidth = 120,
+        colorcolumn = "120",
+        foldmethod = "expr",
+        foldexpr = "nvim_treesitter#foldexpr()",
+        foldenable = false,
+        showbreak = "↪ ",
+        list = true,
+        listchars = {
+            tab = "» ",
+            trail = "·",
+            extends = "»",
+            precedes = "«",
+            eol = "↲",
+            nbsp = "␣",
+        },
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -70,6 +83,27 @@ return {
         ["<Leader>b"] = { desc = "Buffers" },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<leader>sf"] = {
+            function()
+                require("telescope.builtin").find_files()
+            end,
+            desc = "Search files"
+        },
+        ["<leader>sw"] = {
+            function()
+                require("telescope.builtin").live_grep()
+            end,
+            desc = "Search words"
+        },
+        ["<leader>y"] = { "\"+y", desc = "System clipboard" },
+        --- H for previous tab
+        ["H"] = { "[b", desc = "Previous tab" },
+        --- L for next tab
+        ["L"] = { "]b", desc = "Next tab" },
+        --- gt to go to next buffer
+        ["gt"] = { ":bnext<CR>", desc = "Next buffer" },
+        --- gT to go to previous buffer
+        ["gT"] = { ":bprevious<CR>", desc = "Previous buffer" },
       },
       t = {
         -- setting a mapping to false will disable it
