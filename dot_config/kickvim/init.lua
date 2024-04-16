@@ -29,7 +29,8 @@ require('lazy').setup({
     'tpope/vim-fugitive', 'tpope/vim-rhubarb',
 
     -- Detect tabstop and shiftwidth automatically
-    'tpope/vim-sleuth', 'NvChad/nvim-colorizer.lua',
+    -- 'tpope/vim-sleuth',
+    'NvChad/nvim-colorizer.lua',
     {'stevearc/dressing.nvim', opts = {}}, "nelsyeung/twig.vim",
     "blueyed/smarty.vim", "roobert/tailwindcss-colorizer-cmp.nvim",
     "imsnif/kdl.vim", "khaveesh/vim-fish-syntax",
@@ -127,13 +128,14 @@ require('lazy').setup({
         'lukas-reineke/indent-blankline.nvim',
         -- Enable `lukas-reineke/indent-blankline.nvim`
         -- See `:help indent_blankline.txt`
-        opts = {
-            show_trailing_blankline_indent = false,
-            use_treesitter = true,
-            char = "▏",
-            context_char = "▏",
-            show_current_context = true
-        }
+        main = "ibl",
+        config = function ()
+          require("ibl").setup {
+            indent = {
+              char = "▏",
+            }
+          }
+        end
     }, -- "gc" to comment visual regions/lines
     {'numToStr/Comment.nvim', opts = {}}, -- Fuzzy Finder (files, lsp, etc)
     {
