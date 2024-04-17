@@ -203,6 +203,9 @@ local options = {
     foldmethod = 'expr',
     foldexpr = "nvim_treesitter#foldexpr()",
     foldenable = false,
+    showbreak = "↪ ",
+    list = true,
+    listchars = "tab:»·,trail:·,extends:»,precedes:«,eol:↲,nbsp:␣",
 
     -- Set highlight on search
     hlsearch = false,
@@ -251,6 +254,12 @@ end
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- save with <C-s>
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
+
+-- Tab indent in visual mode, and keep the selection
+vim.keymap.set('v', '<', '<gv', { noremap = true })
+vim.keymap.set('v', '>', '>gv', { noremap = true })
+vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
+vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'",
