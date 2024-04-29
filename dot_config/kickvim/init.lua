@@ -206,6 +206,10 @@ local options = {
     showbreak = "↪ ",
     list = true,
     listchars = "tab:»·,trail:·,extends:»,precedes:«,eol:↲,nbsp:␣",
+    shiftwidth = 4,
+    softtabstop = 4,
+    tabstop = 4,
+    expandtab = true,
 
     -- Set highlight on search
     hlsearch = false,
