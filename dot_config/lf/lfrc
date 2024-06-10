@@ -109,5 +109,17 @@ cmd zi ${{
 	lf -remote "send $id cd \"$result\""
 }}
 
+# define a custom 'delete' command
+cmd delete ${{
+    set -f
+    printf "$fx\n"
+    printf "delete?[y/n]"
+    read ans
+    [ $ans = "y" ] && rm -rf $fx
+}}
+# use '<delete>' key for either 'trash' or 'delete' command
+map <delete> trash
+map <f-8> delete
+
 set icons true
 set hidden true
