@@ -52,8 +52,9 @@ if status is-interactive
     function starship_transient_rprompt_func
       starship module time
     end
-    starship init fish | source
+    # starship init fish | source
     # enable_transience
+    oh-my-posh init fish --config ~/.config/omp/config.omp.toml | source
     zoxide init fish | source
 
     source "$HOME/.asdf/asdf.fish"
