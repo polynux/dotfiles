@@ -40,6 +40,8 @@ if [ -d "$HOME/Android-Sdk" ] ; then
     PATH="$ANDROID_HOME/platform-tools:$PATH"
 fi
 
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
 # mkdir and cd in dir
 function mkcd() {
     mkdir -p "$1"
@@ -67,4 +69,5 @@ setopt HIST_IGNORE_ALL_DUPS
 
 source "$HOME/.asdf/asdf.sh"
 
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
+eval "$(oh-my-posh init zsh --config ~/.config/omp/config.omp.toml)"
