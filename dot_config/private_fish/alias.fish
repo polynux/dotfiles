@@ -11,10 +11,10 @@ alias lazy="env NVIM_APPNAME=lazyvim nvim"
 alias nvchad="env NVIM_APPNAME=nvchad nvim"
 alias kick="env NVIM_APPNAME=kickvim nvim"
 
-alias rsc="ssh -At guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
-abbr -a arn ssh -At guillaume.dorce@arena.bms.lan bash
-alias sky="ssh -At guillaume.dorce@sas.sky.lan bash"
-alias skyh="ssh -At -p 302 guillaume.dorce@hst.bm-services.com 'cd /volumes/hosting-logs ; /bin/bash --login'"
+alias rsc="ssh -t guillaume.dorce@rsc.bm-services.com 'cd /volumes/databases/; bash -li'"
+abbr -a arn ssh -t guillaume.dorce@arena.bms.lan bash
+alias sky="ssh -t guillaume.dorce@sas.sky.lan bash"
+alias skyh="ssh -t -p 302 guillaume.dorce@hst.bm-services.com 'cd /volumes/hosting-logs ; /bin/bash --login'"
 alias gw="gulp watch"
 alias colors="$HOME/.config/scripts/colors.sh"
 
