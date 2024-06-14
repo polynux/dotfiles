@@ -17,10 +17,10 @@ if [ -d "$HOME/.cargo" ]; then
     source "$HOME/.cargo/env"
 fi
 source "$FZF_DIR/completion.zsh"
-source "$FZF_DIR/key-bindings.zsh"
 source "$ZCONFIG/keybindings.zsh"
 source "$ZCONFIG/bw/bw-completions.zsh"
 source "$ZCONFIG/alias.zsh"
+source "$FZF_DIR/key-bindings.zsh"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -61,6 +61,19 @@ function batl() {
     tail -f $1 | batcat --paging=never -l log
 }
 
+function nvims() {
+    ITEMS=("default" "nvchad" "lvim" "lazyvim" "kickvim" "nvim-new")
+    CONFIG=$(printf "%s\n" "${ITEMS[@]}" | fzf --prompt=" Neovim Config  " --height="50%" --layout=reverse --border --exit-0)
+    if [ -z "$CONFIG" ]; then
+        echo "Nothing selected"
+        return 0
+    elif [ "$CONFIG" = "default" ]; then
+        CONFIG=""
+    fi
+
+    NVIM_APPNAME=$CONFIG nvim $@
+}
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
@@ -71,3 +84,5 @@ source "$HOME/.asdf/asdf.sh"
 
 # eval "$(starship init zsh)"
 eval "$(oh-my-posh init zsh --config ~/.config/omp/config.omp.toml)"
+
+if [ -e /home/guillaume/.nix-profile/etc/profile.d/nix.sh ]; then . /home/guillaume/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

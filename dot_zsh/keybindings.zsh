@@ -27,6 +27,9 @@ bindkey "^H" backward-kill-word
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-search
 
+# ctrl+n call function nvims
+bindkey "^N" nvims
+
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
