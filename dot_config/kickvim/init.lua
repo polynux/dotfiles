@@ -60,18 +60,57 @@ require('lazy').setup({
       }, -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim'
     }
-  }, {
-  -- Autocompletion
-  'hrsh7th/nvim-cmp',
-  dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
-    'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
+  },
+  { -- Autoformat
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>f',
+        function()
+          require('conform').format { async = true, lsp_fallback = true }
+        end,
+        mode = '',
+        desc = '[F]ormat buffer',
+      },
+    },
+    opts = {
+      notify_on_error = false,
+      format_on_save = false,
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true }
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      --   }
+      -- end,
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        -- Conform can also run multiple formatters sequentially
+        -- python = { "isort", "black" },
+        --
+        -- You can use 'stop_after_first' to run the first available formatter from the list
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        php = { 'phpcbf', 'php-cs-fixer', stop_after_first = true },
+      },
+    },
+  },
+  {
+    -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
 
-    -- Adds LSP completion capabilities
-    'hrsh7th/cmp-nvim-lsp', -- Adds a number of user-friendly snippets
-    'rafamadriz/friendly-snippets'
-  }
-}, -- Useful plugin to show you pending keybinds.
+      -- Adds LSP completion capabilities
+      'hrsh7th/cmp-nvim-lsp', -- Adds a number of user-friendly snippets
+      'rafamadriz/friendly-snippets'
+    }
+  }, -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',   opts = {} }, {
   -- Adds git related signs to the gutter, as well as utilities for managing changes
   'lewis6991/gitsigns.nvim',
@@ -410,6 +449,22 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.blade = {
+  install_info = {
+    url = "https://github.com/EmranMR/tree-sitter-blade",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "blade"
+}
+
+-- vim.filetype.add({
+--   pattern = {
+--     ['.*%.blade%.php'] = 'blade',
+--   },
+-- })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
   { desc = 'Go to previous diagnostic message' })
@@ -615,6 +670,54 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.shiftwidth = 4
     vim.bo.softtabstop = 4
   end
+})
+
+vim.filetype.add({ extension = { blade = 'blade.php' } })
+vim.filetype.add({ extension = { smarty = 'tpl' } })
+
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+
+if not configs.smarty then
+  configs.smarty = {
+    default_config = {
+      cmd = { 'smarty-language-server', '--stdio' },
+      filetypes = { 'smarty' },
+      root_dir = lspconfig.util.root_pattern('composer.json', '.git')
+    }
+  }
+end
+
+if vim.fn.executable('smarty-language-server') ~= 1 then
+  require('notify')('smarty-language-server not found', 'error')
+  vim.fn.jobstart('npm install -g vscode-smarty-langserver-extracted', {
+    on_exit = function(_, code)
+      if code == 0 then
+        require('notify')('smarty-language-server installed', 'info')
+      else
+        require('notify')('smarty-language-server installation failed', 'error')
+      end
+    end,
+    on_stderr = function(_, data)
+      require('notify')(data, 'error')
+    end,
+    on_stdout = function(_, data)
+      require('notify')(data, 'info')
+    end
+  })
+end
+
+lspconfig.smarty.setup({
+  on_attach = on_attach,
+  settings = {
+    smarty = {
+      validate = true,
+      completion = true,
+      format = true,
+      lint = true
+    }
+  },
+  filetypes = { 'smarty' }
 })
 
 require('possession').setup {
