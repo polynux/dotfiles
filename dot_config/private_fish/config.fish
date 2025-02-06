@@ -11,6 +11,16 @@ if status is-interactive
     fish_add_path "$HOME/.local/share/bob/nvim-bin"
     fish_add_path "$HOME/.go/bin"
 
+    if test -z $ASDF_DATA_DIR
+        set _asdf_shims "$HOME/.asdf/shims"
+    else
+        set _asdf_shims "$ASDF_DATA_DIR/shims"
+    end
+    if not contains $_asdf_shims $PATH
+        set -gx --prepend PATH $_asdf_shims
+    end
+    set --erase _asdf_shims
+
     set -gx EDITOR nvim
 
     bind \cH backward-kill-word
@@ -57,7 +67,7 @@ if status is-interactive
     oh-my-posh init fish --config ~/.config/omp/config.omp.toml | source
     zoxide init fish | source
 
-    source "$HOME/.asdf/asdf.fish"
+    # source "$HOME/.asdf/asdf.fish"
     # set -gx DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
     # set -gx PULSE_SERVER tcp:(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
 
