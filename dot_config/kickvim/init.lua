@@ -42,8 +42,8 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', config = true },
+      'mason-org/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -98,6 +98,13 @@ require('lazy').setup({
         php = { 'phpcbf', 'php-cs-fixer', stop_after_first = true },
       },
     },
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
   },
   {
     -- Autocompletion
@@ -542,7 +549,7 @@ local servers = {
   gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  tsserver = {},
+  ts_ls = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   -- intelephense = {
@@ -590,17 +597,17 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes
-    }
-  end
+mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers),
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+        filetypes = (servers[server_name] or {}).filetypes
+      }
+    end
+  }
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -740,16 +747,6 @@ vim.keymap.set('n', '<leader>Sd', function() vim.cmd('SDelete') end,
 vim.keymap.set('n', '<leader>Sf',
   function() vim.cmd('Telescope possession list') end,
   { desc = 'List sessions' })
-
--- use copilot.lua api object to display animation using nvim-notify when fetching suggestions
-local api = require('copilot.api')
-api.register_status_notification_handler(function(status)
-  -- require('notify')({ 'Copilot', status }, 'info', { timeout = 1000, title = 'Copilot' })
-  if status == 'InProgress' then
-    require('notify')('Fetching suggestions...', 'info',
-      { timeout = 1000, title = 'Copilot' })
-  end
-end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
