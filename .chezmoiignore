@@ -1,3 +1,8 @@
 lua/
 battery.lua
 .config/fish/fish_variables
+.config/variety/Downloaded/**
+.config/variety/Favorites/**
+.config/variety/Fetched/**
+.config/variety/wallpaper/**
+.config/variety/**/*.log
