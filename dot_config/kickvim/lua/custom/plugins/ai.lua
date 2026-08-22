@@ -4,6 +4,9 @@ return {
     event = 'InsertEnter',
     dependencies = { 'Saghen/blink.cmp' },
     config = function()
+      local mc = require 'minuet.config'
+      local utils = require 'minuet.utils'
+
       require('minuet').setup {
         provider = 'openai_fim_compatible',
         n_completions = 1,
@@ -25,24 +28,16 @@ return {
             },
             template = {
               prompt = function(context_before_cursor, _, _)
-                local system = 'You are a code completion engine. '
-                  .. 'Output ONLY the code that completes the given context. '
-                  .. 'No explanations, no markdown, no backticks.\n\n'
-                  .. 'Complete the code after the cursor:\n'
-                return system .. context_before_cursor
+                local system = utils.make_system_prompt(mc.default_system, 1)
+                local language = utils.add_language_comment()
+                local tab = utils.add_tab_comment()
+                return system .. '\n' .. language .. '\n' .. tab .. '\n' .. context_before_cursor
               end,
               suffix = false,
             },
             get_text_fn = {
               no_stream = function(json)
                 return json.response or ''
-              end,
-            },
-            transform = {
-              function(data)
-                local log = require('minuet.utils').notify
-                log('[minuet] request sent, waiting for response...', 'debug', vim.log.levels.INFO)
-                return data
               end,
             },
           },
