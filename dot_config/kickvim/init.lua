@@ -8,7 +8,7 @@ vim.g.maplocalleader = ' '
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -66,28 +66,12 @@ require('lazy').setup({
           },
         },
       }, -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
       'saghen/blink.cmp',
     },
     config = function()
-      -- Setup neovim lua configuration
-      require('neodev').setup()
-
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = require('blink.cmp').get_lsp_capabilities()
-      -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
       local lspconfig = require 'lspconfig'
-      local configs = require 'lspconfig.configs'
-
-      if not configs.smarty then
-        configs.smarty = {
-          default_config = {
-            cmd = { 'smarty-language-server', '--stdio' },
-            filetypes = { 'smarty' },
-            root_dir = lspconfig.util.root_pattern('composer.json', '.git'),
-          },
-        }
-      end
 
       -- [[ Configure LSP ]]
       --  This function gets run when an LSP connects to a particular buffer.
@@ -107,7 +91,7 @@ require('lazy').setup({
         end
 
         nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-        nmap('<leader>la', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        nmap('<leader>la', vim.lsp.buf.code_action, '[L]SP [A]ction')
 
         nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
         nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -150,7 +134,7 @@ require('lazy').setup({
         -- pyright = {},
         -- rust_analyzer = {},
         ts_ls = {},
-        html = { filetypes = { 'html', 'twig', 'hbs' } },
+        html = {},
 
         -- intelephense = {
         --     intelephense = {
@@ -185,19 +169,6 @@ require('lazy').setup({
             telemetry = { enable = false },
           },
         },
-      }
-
-      lspconfig.smarty.setup {
-        on_attach = on_attach,
-        settings = {
-          smarty = {
-            validate = true,
-            completion = true,
-            format = true,
-            lint = true,
-          },
-        },
-        filetypes = { 'smarty' },
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -257,6 +228,7 @@ require('lazy').setup({
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         php = { 'phpcbf', 'php-cs-fixer', stop_after_first = true },
+        blade = { 'blade_formatter' },
       },
     },
   },
@@ -267,20 +239,8 @@ require('lazy').setup({
     -- install jsregexp (optional!).
     build = 'make install_jsregexp',
   },
-  {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp', -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
-    },
-  }, -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { -- Useful plugin to show you pending keybinds.
+    'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -326,7 +286,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'palenight',
+        theme = 'catppuccin',
         -- component_separators = '|',
         component_separators = '⃒',
         -- section_separators = '',
@@ -373,7 +333,6 @@ require('lazy').setup({
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ':TSUpdate',
   },
-  { 'folke/neodev.nvim', opts = {} },
   {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -412,12 +371,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -514,7 +473,7 @@ local options = {
     wrap = true,
     colorcolumn = '120',
     foldmethod = 'expr',
-    foldexpr = 'nvim_treesitter#foldexpr()',
+    foldexpr = 'v:lua.vim.treesitter.foldexpr()',
     foldenable = false,
     showbreak = '↪ ',
     list = true,
@@ -584,10 +543,6 @@ vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set('n', '<leader>lf', function()
-  vim.lsp.buf.format()
-end, { desc = 'Format current buffer with LSP' })
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -612,9 +567,6 @@ vim.api.nvim_create_user_command('Reload', 'luafile $MYVIMRC', {})
 --   pattern = 'init.lua',
 -- })
 
--- open netrw with <leader>e
-vim.keymap.set('n', '<leader>e', ':Explore<CR>', { silent = true })
-
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -626,6 +578,9 @@ require('telescope').setup {
       override_file_sorter = true, -- override the file sorter
       case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
+    },
+    frecency = {
+      db_safe_mode = false,
     },
   },
 }
@@ -686,7 +641,7 @@ require('nvim-treesitter.configs').setup {
     'c',
     'tsx',
   },
-  indent = { enable = { 'php' }, disable = true },
+  indent = { enable = { 'php' }, disable = {} },
   highlight = { enable = true, disable = {} },
   auto_install = true,
   incremental_selection = {
@@ -766,71 +721,6 @@ vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 vim.keymap.set('n', '<leader>e', require('oil').toggle_float, { desc = 'Toggle oil float' })
 vim.keymap.set('n', '<leader>bc', '<CMD>bdelete<CR>', { desc = 'Close buffer' })
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
-
-local copilot_suggestion = require 'copilot.suggestion'
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if copilot_suggestion.is_visible() then
-        copilot_suggestion.accept()
-      else
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif luasnip.expand_or_locally_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'buffer' },
-    { name = 'path' },
-    -- Copilot Source
-    -- { name = "copilot", group_index = 2 },
-  },
-}
-
-cmp.setup.filetype({ 'sql' }, {
-  sources = {
-    { name = 'vim-dadbod-completion' },
-    { name = 'buffer' },
-  },
-})
-
 -- if filetype is php, set tabstop to 4
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'php',
@@ -841,50 +731,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.filetype.add { extension = { blade = 'blade.php' } }
-vim.filetype.add { extension = { smarty = 'tpl' } }
-
-if vim.fn.executable 'smarty-language-server' ~= 1 then
-  require 'notify'('smarty-language-server not found', 'error')
-  vim.fn.jobstart('npm install -g vscode-smarty-langserver-extracted', {
-    on_exit = function(_, code)
-      if code == 0 then
-        require 'notify'('smarty-language-server installed', 'info')
-      else
-        require 'notify'('smarty-language-server installation failed', 'error')
-      end
-    end,
-    on_stderr = function(_, data)
-      require 'notify'(data, 'error')
-    end,
-    on_stdout = function(_, data)
-      require 'notify'(data, 'info')
-    end,
-  })
-end
-
-require('possession').setup {
-  commands = {
-    save = 'SSave',
-    load = 'SLoad',
-    delete = 'SDelete',
-    list = 'SList',
-  },
-  autosave = { current = true },
-}
-
-vim.keymap.set('n', '<leader>Ss', function()
-  vim.cmd('SSave' .. ' ' .. vim.fn.input 'Session name: ')
-end, { desc = 'Save session' })
-vim.keymap.set('n', '<leader>Sl', function()
-  vim.cmd 'SLoad'
-end, { desc = 'Load session' })
-vim.keymap.set('n', '<leader>Sd', function()
-  vim.cmd 'SDelete'
-end, { desc = 'Delete session' })
-vim.keymap.set('n', '<leader>Sf', function()
-  vim.cmd 'Telescope possession list'
-end, { desc = 'List sessions' })
+vim.filetype.add { pattern = { ['.*%.blade%.php'] = 'blade' } }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
