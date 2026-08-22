@@ -17,8 +17,8 @@ return {
         n_completions = 1,
         context_window = 16000,
         request_timeout = 30,
-        throttle = 2000,
-        debounce = 800,
+        throttle = 500,
+        debounce = 300,
         notify = 'debug',
         provider_options = {
           openai_fim_compatible = {
