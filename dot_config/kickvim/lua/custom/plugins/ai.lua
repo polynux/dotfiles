@@ -28,7 +28,8 @@ return {
             },
             template = {
               prompt = function(context_before_cursor, _, _)
-                local system = utils.make_system_prompt(mc.default_system, 1)
+                local system_template = vim.deepcopy(mc.default_system)
+                local system = utils.make_system_prompt(system_template, 1)
                 local language = utils.add_language_comment()
                 local tab = utils.add_tab_comment()
                 return system .. '\n' .. language .. '\n' .. tab .. '\n' .. context_before_cursor
