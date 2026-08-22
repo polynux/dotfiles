@@ -444,7 +444,7 @@ require('lazy').setup({
             module = 'minuet.blink',
             name = 'minuet',
             async = true,
-            timeout_ms = 10000,
+            timeout_ms = 30000,
             score_offset = 50,
           },
         },

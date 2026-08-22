@@ -8,9 +8,10 @@ return {
         provider = 'openai_fim_compatible',
         n_completions = 1,
         context_window = 16000,
-        request_timeout = 10,
-        throttle = 1500,
-        debounce = 600,
+        request_timeout = 30,
+        throttle = 2000,
+        debounce = 800,
+        notify = 'debug',
         provider_options = {
           openai_fim_compatible = {
             api_key = 'TERM',
@@ -24,17 +25,24 @@ return {
             },
             template = {
               prompt = function(context_before_cursor, _, _)
-                local utils = require 'minuet.utils'
-                local language = utils.add_language_comment()
-                local tab = utils.add_tab_comment()
-                context_before_cursor = language .. '\n' .. tab .. '\n' .. context_before_cursor
-                return context_before_cursor
+                local system = 'You are a code completion engine. '
+                  .. 'Output ONLY the code that completes the given context. '
+                  .. 'No explanations, no markdown, no backticks.\n\n'
+                  .. 'Complete the code after the cursor:\n'
+                return system .. context_before_cursor
               end,
               suffix = false,
             },
             get_text_fn = {
               no_stream = function(json)
-                return json.response
+                return json.response or ''
+              end,
+            },
+            transform = {
+              function(data)
+                local log = require('minuet.utils').notify
+                log('[minuet] request sent, waiting for response...', 'debug', vim.log.levels.INFO)
+                return data
               end,
             },
           },
