@@ -4,8 +4,13 @@ return {
     event = 'InsertEnter',
     dependencies = { 'Saghen/blink.cmp' },
     config = function()
-      local mc = require 'minuet.config'
       local utils = require 'minuet.utils'
+
+      local system_prompt = 'You are a code completion engine. '
+        .. 'Complete the code at the cursor position. '
+        .. 'Output ONLY the new code to insert. '
+        .. 'No explanations, no markdown, no backticks, '
+        .. 'no repetition of existing code.\n\n'
 
       require('minuet').setup {
         provider = 'openai_fim_compatible',
@@ -28,11 +33,9 @@ return {
             },
             template = {
               prompt = function(context_before_cursor, _, _)
-                local system_template = vim.deepcopy(mc.default_system)
-                local system = utils.make_system_prompt(system_template, 1)
                 local language = utils.add_language_comment()
                 local tab = utils.add_tab_comment()
-                return system .. '\n' .. language .. '\n' .. tab .. '\n' .. context_before_cursor
+                return system_prompt .. language .. '\n' .. tab .. '\n' .. context_before_cursor
               end,
               suffix = false,
             },
