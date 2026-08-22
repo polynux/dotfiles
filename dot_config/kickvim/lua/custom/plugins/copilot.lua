@@ -6,8 +6,12 @@ return {
         config = function()
             vim.defer_fn(function()
                 require("copilot").setup({
-                    suggestion = {enabled = true, auto_trigger = true}
+                    suggestion = {enabled = true, auto_trigger = true},
                     -- suggestion = {enabled = false, auto_trigger = false}
+                    filetypes = {
+                        ["*"] = true,
+                        rust = false,
+                    },
                 })
             end, 100)
         end
