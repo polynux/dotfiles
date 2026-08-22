@@ -16,15 +16,10 @@ return {
         ollama = {
           model = 'glm-5.2:cloud',
           endpoint = 'http://localhost:11434',
-          timeout = 60000,
+          timeout = 120000,
           is_env_set = function()
             return true
           end,
-          extra_request_body = {
-            options = {
-              think = false,
-            },
-          },
         },
       },
       behaviour = {
