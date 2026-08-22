@@ -424,12 +424,20 @@ require('lazy').setup({
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        trigger = { prefetch_on_insert = false },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          minuet = {
+            module = 'minuet.blink',
+            name = 'minuet',
+            async = true,
+            timeout_ms = 5000,
+            score_offset = 50,
+          },
         },
       },
 
