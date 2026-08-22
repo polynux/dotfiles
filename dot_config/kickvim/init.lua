@@ -284,15 +284,20 @@ require('lazy').setup({
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'catppuccin-nvim',
-        -- component_separators = '|',
-        component_separators = '⃒',
-        -- section_separators = '',
-      },
-    },
+    config = function()
+      local spinner = require 'minuet-spinner'
+      spinner.setup()
+      require('lualine').setup {
+        options = {
+          icons_enabled = true,
+          theme = 'catppuccin-nvim',
+          component_separators = '⃒',
+        },
+        sections = {
+          lualine_c = { 'filename', { spinner.component } },
+        },
+      }
+    end,
   },
   {
     -- Add indentation guides even on blank lines
