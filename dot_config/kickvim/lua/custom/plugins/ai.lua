@@ -5,6 +5,7 @@ return {
     dependencies = { 'Saghen/blink.cmp' },
     config = function()
       local utils = require 'minuet.utils'
+      local common = require 'minuet.backends.common'
 
       local system_prompt = 'You are a code completion engine. '
         .. 'Complete the code at the cursor position. '
@@ -17,7 +18,7 @@ return {
         n_completions = 1,
         context_window = 16000,
         request_timeout = 30,
-        throttle = 500,
+        throttle = 0,
         debounce = 300,
         notify = 'debug',
         provider_options = {
@@ -47,6 +48,20 @@ return {
           },
         },
       }
+
+      -- Override the blink source to skip new requests while one is pending
+      local blink_source = require 'minuet.blink'
+      local original_get_completions = blink_source.get_completions
+
+      blink_source.get_completions = function(self, ctx, callback)
+        local not_manual = ctx.trigger.kind ~= 'manual'
+        if not_manual and #common.current_jobs > 0 then
+          -- A request is already in flight; don't kill it, just return
+          callback()
+          return
+        end
+        return original_get_completions(self, ctx, callback)
+      end
     end,
   },
 }
