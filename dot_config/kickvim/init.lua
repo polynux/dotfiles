@@ -192,6 +192,19 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- GDScript LSP runs inside the Godot editor, so it has no mason package
+      -- and isn't registered with mason-lspconfig. Set it up directly with
+      -- the native vim.lsp API (Nvim 0.11+) instead of the deprecated
+      -- require('lspconfig') framework, to avoid its deprecation warning.
+      -- Requires: open the project in Godot and enable the editor server
+      -- (Editor ▸ Editor Settings ▸ Network ▸ Remote Filesystem); override
+      -- the port via the $GDScript_Port env var (default 6005).
+      vim.lsp.config('gdscript', {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+      vim.lsp.enable('gdscript')
     end,
   },
   { -- Autoformat
@@ -665,6 +678,7 @@ require('nvim-treesitter.configs').setup {
     'python',
     'c',
     'tsx',
+    'gdscript',
   },
   indent = { enable = { 'php' }, disable = {} },
   highlight = { enable = true, disable = {} },
