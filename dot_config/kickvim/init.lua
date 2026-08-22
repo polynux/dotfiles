@@ -409,6 +409,15 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'super-tab',
+        ['<S-Tab>'] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.snippet_backward()
+            end
+            return cmp.select_prev()
+          end,
+          'fallback',
+        },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -435,7 +444,7 @@ require('lazy').setup({
             module = 'minuet.blink',
             name = 'minuet',
             async = true,
-            timeout_ms = 5000,
+            timeout_ms = 10000,
             score_offset = 50,
           },
         },
@@ -470,7 +479,9 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
-}, {})
+}, {
+  rocks = { enabled = true },
+})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
