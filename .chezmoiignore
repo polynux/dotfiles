@@ -6,3 +6,4 @@ battery.lua
 .config/variety/Fetched/**
 .config/variety/wallpaper/**
 .config/variety/**/*.log
+.config/hypr/hyprland.conf.backup.*
