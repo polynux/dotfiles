@@ -50,6 +50,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("flameshot &")
     -- hl.exec_cmd("handy --start-hidden &")
     hl.exec_cmd("noctalia")
+    hl.exec_cmd("protonvpn-app")
 end)
 
 -- ==================
@@ -228,3 +229,6 @@ end)
 require("modules.smw")
 require("modules.binds")
 require("modules.noctalia")
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()

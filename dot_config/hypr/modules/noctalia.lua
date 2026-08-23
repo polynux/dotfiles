@@ -8,7 +8,7 @@ hl.bind("SUPER + S",         hl.dsp.exec_cmd(ipc .. "panel-toggle control-center
 hl.bind("SUPER + comma",     hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("SUPER + Period",    hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("SUPER + x",         hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
-hl.bind("SUPER + Semicolon", hl.dsp.exec_cmd(ipc .. 'panel-toggle launcher "/emoji"'))
+hl.bind("SUPER + Semicolon", hl.dsp.exec_cmd(ipc .. 'panel-toggle launcher "/emo "'))
 hl.bind("SUPER + r",         hl.dsp.exec_cmd(ipc .. 'panel-toggle launcher "/command"'))
 hl.bind("SUPER + v",         hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
 
