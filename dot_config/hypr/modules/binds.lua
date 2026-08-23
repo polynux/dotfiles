@@ -5,8 +5,8 @@ local mainMod = "SUPER"
 
 -- === Window Management ===
 hl.bind(mainMod .. " + Q", hl.dsp.window.kill())
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "set" }))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ action = "unset" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.float())
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("dms ipc call window-rules toggle"))
@@ -32,12 +32,13 @@ hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
 
 -- === Column Navigation ===
--- focuswindow,first has no documented Lua "first" selector; use a helper.
+-- focuswindow,first has no documented Lua "first" selector; use a helper
+-- that focuses the first window returned by hl.get_windows().
 local function focus_window_by_index(idx)
     return function()
         local wins = hl.get_windows()
         if wins and wins[idx] then
-            hl.dispatch(hl.dsp.focus({ window = "address:0x" .. string.format("%x", wins[idx].address) }))
+            hl.dispatch(hl.dsp.focus({ window = "address:" .. wins[idx].address }))
         end
     end
 end
@@ -72,23 +73,39 @@ hl.bind(mainMod .. " + CTRL + up",   hl.dsp.window.move({ workspace = "e-1" }))
 hl.bind(mainMod .. " + CTRL + U", hl.dsp.window.move({ workspace = "e+1" }))
 hl.bind(mainMod .. " + CTRL + I", hl.dsp.window.move({ workspace = "e-1" }))
 
--- === Numbered Workspaces (via split-monitor-workspaces) ===
-for i = 1, smw.get_amount_of_workspaces() do
+-- === Numbered Workspaces (absolute IDs 1-9, matching legacy behavior) ===
+-- The smw plugin splits workspace IDs across monitors (1-5 on DP-1, 6-10 on
+-- DP-2) but focuses them by absolute ID, not per-monitor index.
+for i = 1, 9 do
     local n = tostring(i)
-    hl.bind(mainMod .. " + " .. n,         smw.workspace(n))
-    hl.bind(mainMod .. " + SHIFT + " .. n, smw.move_to_workspace_silent(n))
+    hl.bind(mainMod .. " + " .. n,         hl.dsp.focus({ workspace = n }))
+    hl.bind(mainMod .. " + SHIFT + " .. n, hl.dsp.window.move({ workspace = n, follow = false }))
 end
 
 -- === Move/resize windows with mainMod + LMB/RMB and dragging ===
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true, drag = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, drag = true })
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- === Click-drag resize on keys (legacy: bindd = SUPER, code:20, ..., resizeactive, -100 0) ===
-hl.bind(mainMod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { mouse = true, click = true })
-hl.bind(mainMod .. " + code:21", hl.dsp.window.resize({ x =  100, y = 0, relative = true }), { mouse = true, click = true })
+hl.bind(mainMod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { mouse = true, drag = true })
+hl.bind(mainMod .. " + code:21", hl.dsp.window.resize({ x =  100, y = 0, relative = true }), { mouse = true, drag = true })
 
--- === Manual Sizing (repeat while held) ===
-hl.bind(mainMod .. " + minus",        hl.dsp.window.resize({ x = -10, y = 0,  relative = true }), { repeating = true })
-hl.bind(mainMod .. " + equal",         hl.dsp.window.resize({ x =  10, y = 0,  relative = true }), { repeating = true })
-hl.bind(mainMod .. " + SHIFT + minus", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + SHIFT + equal", hl.dsp.window.resize({ x = 0, y =  10, relative = true }), { repeating = true })
+-- === Manual Sizing (repeat while held; legacy used 10% of window size) ===
+local function resize_percent(dx_pct, dy_pct)
+    return function()
+        local win = hl.get_active_window()
+        if not win or not win.size then return end
+        local s = win.size
+        local w, h = s.x, s.y
+        if not w or not h then return end
+        hl.dispatch(hl.dsp.window.resize({
+            x = math.floor(w * dx_pct),
+            y = math.floor(h * dy_pct),
+            relative = true,
+        }))
+    end
+end
+hl.bind(mainMod .. " + minus",        resize_percent(-0.10, 0),     { repeating = true })
+hl.bind(mainMod .. " + equal",         resize_percent( 0.10, 0),     { repeating = true })
+hl.bind(mainMod .. " + SHIFT + minus", resize_percent(0, -0.10),     { repeating = true })
+hl.bind(mainMod .. " + SHIFT + equal", resize_percent(0,  0.10),     { repeating = true })

@@ -1,25 +1,25 @@
--- Noctalia shell IPC binds (translated from noctalia.conf)
+-- Noctalia shell IPC binds (v5)
 
-local ipc = "qs -c noctalia-shell ipc call"
+local ipc = "noctalia msg "
 
 -- Core binds
-hl.bind("SUPER + SPACE",   hl.dsp.exec_cmd(ipc .. " launcher toggle"))
-hl.bind("SUPER + S",        hl.dsp.exec_cmd(ipc .. " controlCenter toggle"))
-hl.bind("SUPER + comma",    hl.dsp.exec_cmd(ipc .. " settings toggle"))
-hl.bind("SUPER + Period",   hl.dsp.exec_cmd(ipc .. " settings toggle"))
-hl.bind("SUPER + x",        hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
-hl.bind("SUPER + Semicolon", hl.dsp.exec_cmd(ipc .. " launcher emoji"))
-hl.bind("SUPER + r",        hl.dsp.exec_cmd(ipc .. " launcher command"))
-hl.bind("SUPER + v",        hl.dsp.exec_cmd(ipc .. " launcher clipboard"))
+hl.bind("SUPER + SPACE",     hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind("SUPER + S",         hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind("SUPER + comma",     hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind("SUPER + Period",    hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind("SUPER + x",         hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
+hl.bind("SUPER + Semicolon", hl.dsp.exec_cmd(ipc .. 'panel-toggle launcher "/emoji"'))
+hl.bind("SUPER + r",         hl.dsp.exec_cmd(ipc .. 'panel-toggle launcher "/command"'))
+hl.bind("SUPER + v",         hl.dsp.exec_cmd(ipc .. "panel-toggle clipboard"))
 
 -- Media keys (locked + repeat while held)
-hl.bind("XF86AudioRaiseVolume",    hl.dsp.exec_cmd(ipc .. " volume increase"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",    hl.dsp.exec_cmd(ipc .. " volume decrease"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute",            hl.dsp.exec_cmd(ipc .. " volume muteOutput"), { locked = true })
-hl.bind("XF86MonBrightnessUp",      hl.dsp.exec_cmd(ipc .. " brightness increase"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",    hl.dsp.exec_cmd(ipc .. " brightness decrease"), { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. "volume-up"),   { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. "volume-down"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. "volume-mute"), { locked = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness-up"),   { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { locked = true, repeating = true })
 
--- Sound (playback)
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. " media playPause"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. " media next"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. " media previous"))
+-- Media playback
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd(ipc .. "media toggle"))
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd(ipc .. "media next"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd(ipc .. "media previous"))
