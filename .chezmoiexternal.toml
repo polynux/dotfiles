@@ -29,3 +29,9 @@
 [".tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
+
+[".config/hypr/plugins/split-monitor-workspaces"]
+    type = "git-repo"
+    url = "https://github.com/zjeffer/split-monitor-workspaces.git"
+    [".config/hypr/plugins/split-monitor-workspaces".clone]
+        args = ["--branch", "release/0.56.x"]
