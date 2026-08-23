@@ -617,9 +617,6 @@ require('telescope').setup {
       case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
     },
-    frecency = {
-      db_safe_mode = false,
-    },
   },
 }
 
@@ -638,26 +635,12 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 --     })
 -- end, {desc = '[/] Fuzzily search in current buffer'})
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
--- vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files,
---   { desc = '[S]earch [F]iles' })
+-- File/grep/frecency pickers are now provided by fff.nvim.
+-- See lua/custom/plugins/fff.lua for the <leader>sf / <leader>sg /
+-- <leader>sw / <leader>gf / <Leader>tf mappings. Telescope is kept only
+-- for the pickers fff does not cover (oldfiles, buffers, help, diagnostics, LSP).
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
-vim.keymap.set('n', '<Leader>tf', function()
-  require('telescope').extensions.frecency.frecency {}
-end)
-
--- telescope frecency for current working directory
-vim.keymap.set('n', '<Leader>sf', function()
-  vim.cmd 'normal! :'
-  require('telescope').extensions.frecency.frecency {
-    workspace = 'CWD',
-    enable_prompt_mappings = false,
-  }
-end, { desc = '[S]earch [F]recency (files)' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
