@@ -3,13 +3,51 @@
 local smw = require("modules.smw")
 local mainMod = "SUPER"
 
+local terminal    = "alacritty"
+local fileManager = "nautilus"
+local menu        = "walker"
+local browser     = "zen-browser"
+
+-- === Apps ===
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+
 -- === Window Management ===
-hl.bind(mainMod .. " + Q", hl.dsp.window.kill())
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
+hl.bind(mainMod .. " + T", hl.dsp.window.float())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.window.float())
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("dms ipc call window-rules toggle"))
+hl.bind(mainMod .. " + SHIFT + period", hl.dsp.exec_cmd("pkill -USR2 -x handy"))
+
+-- === Screenshots ===
+-- Region screenshot -> save to ~/Pictures/Screenshots
+hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region -z -o $HOME/Pictures/Screenshots"))
+-- Opens flameshot's interactive editor on the monitor under the cursor
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("flameshot screen -e"))
+-- Captures all monitors at once and copies the combined image to the clipboard
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("flameshot full -c"))
+
+-- === Laptop multimedia keys ===
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, release = true })
+
+-- === Game Mode Submap ===
+hl.bind("SUPER + F1", function()
+    hl.dispatch(hl.dsp.exec_cmd('notify-send "Game Mode" "Enabled - keybinds disabled"'))
+    hl.dispatch(hl.dsp.submap("game"))
+end)
+
+hl.define_submap("game", function()
+    hl.bind("SUPER + F1", function()
+        hl.dispatch(hl.dsp.exec_cmd('notify-send "Game Mode" "Disabled"'))
+        hl.dispatch(hl.dsp.submap("reset"))
+    end)
+end)
 
 -- === Focus Navigation ===
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "l" }))

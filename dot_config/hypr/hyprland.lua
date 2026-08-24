@@ -40,7 +40,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpaper &")
     hl.exec_cmd("variety &")
     hl.exec_cmd("kdeconnectd &")
-    hl.exec_cmd("blueman-applet &")
+    -- hl.exec_cmd("blueman-applet &")
     hl.exec_cmd("trayscale --hide-window &")
     hl.exec_cmd("vesktop &")
     hl.exec_cmd("steam -silent &")
@@ -56,11 +56,6 @@ end)
 -- ==================
 -- VARIABLES
 -- ==================
-local terminal    = "alacritty"
-local fileManager = "nautilus"
-local menu        = "walker"
-local browser     = "zen-browser"
-local mainMod      = "SUPER"
 local altMod       = "ALT"
 
 -- ==================
@@ -184,44 +179,6 @@ hl.layer_rule({
   blur_popups = true,
 })
 hl.layer_rule({ match = { namespace = "^dms:.*" }, no_anim = true })
-
--- ==================
--- KEYBINDINGS (core)
--- ==================
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + Q", hl.dsp.window.kill())
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + T", hl.dsp.window.float())
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-
-hl.bind(mainMod .. " + SHIFT + period", hl.dsp.exec_cmd("pkill -USR2 -x handy"))
-
--- Region screenshot -> save to ~/Pictures/Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region -z -o $HOME/Pictures/Screenshots"))
--- Opens flameshot's interactive editor on the monitor under the cursor
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("flameshot screen -e"))
--- Captures all monitors at once and copies the combined image to the clipboard
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("flameshot full -c"))
-
--- Laptop multimedia keys
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, release = true })
-
--- ==================
--- GAME MODE SUBMAP
--- ==================
-hl.bind("SUPER + F1", function()
-    hl.dispatch(hl.dsp.exec_cmd('notify-send "Game Mode" "Enabled - keybinds disabled"'))
-    hl.dispatch(hl.dsp.submap("game"))
-end)
-
-hl.define_submap("game", function()
-    hl.bind("SUPER + F1", function()
-        hl.dispatch(hl.dsp.exec_cmd('notify-send "Game Mode" "Disabled"'))
-        hl.dispatch(hl.dsp.submap("reset"))
-    end)
-end)
 
 -- ==================
 -- SOURCED MODULES
