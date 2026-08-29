@@ -7,3 +7,7 @@ battery.lua
 .config/variety/wallpaper/**
 .config/variety/**/*.log
 .config/hypr/hyprland.conf.backup.*
+.config/opencode/node_modules/**
+.config/opencode/bun.lock
+.config/opencode/package-lock.json
+.config/opencode/.gitignore

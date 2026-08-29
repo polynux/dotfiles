@@ -1,0 +1,56 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-plan-manager"],
+  "permission": {
+    "webfetch": "allow",
+    "websearch": "allow"
+  },
+  "agent": {
+    "plan": {
+      "permission": {
+        "edit": {
+          "*": "deny",
+          ".opencode/plans/*": "ask"
+        }
+      }
+    }
+  },
+  "provider": {
+    "ollama": {
+      "models": {
+        "glm-5.1:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 202752,
+            "output": 131072
+          },
+          "name": "glm-5.1:cloud"
+        },
+        "glm-5:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 202752,
+            "output": 131072
+          },
+          "name": "glm-5:cloud"
+        }
+      },
+      "name": "Ollama",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    }
+  },
+  "mcp": {
+    "godot": {
+      "type": "local",
+      "command": ["npx", "-y", "@coding-solo/godot-mcp"],
+      "enabled": true,
+      "environment": {
+        "GODOT_PATH": "/usr/bin/godot",
+        "DEBUG": "false"
+      }
+    }
+  }
+}
