@@ -48,6 +48,7 @@
         "npx",
         "-y",
         "@playwright/mcp@latest",
+        "--browser=chromium",
         "--caps=pdf,vision,devtools"
       ],
       "enabled": true,
@@ -59,6 +60,7 @@
         "npx",
         "-y",
         "@playwright/mcp@latest",
+        "--browser=chromium",
         "--caps=pdf,vision,devtools",
         "--headless"
       ],
