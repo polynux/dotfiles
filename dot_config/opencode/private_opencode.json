@@ -1,19 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-plan-manager"],
   "permission": {
     "webfetch": "allow",
-    "websearch": "allow"
-  },
-  "agent": {
-    "plan": {
-      "permission": {
-        "edit": {
-          "*": "deny",
-          ".opencode/plans/*": "ask"
-        }
-      }
-    }
+    "websearch": "allow",
+    "browser_*": "allow"
   },
   "provider": {
     "ollama": {
@@ -51,6 +41,29 @@
         "GODOT_PATH": "/usr/bin/godot",
         "DEBUG": "false"
       }
+    },
+    "browser": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--caps=pdf,vision,devtools"
+      ],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "browser-headless": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--caps=pdf,vision,devtools",
+        "--headless"
+      ],
+      "enabled": false,
+      "timeout": 120000
     }
   }
 }
