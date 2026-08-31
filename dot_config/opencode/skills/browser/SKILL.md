@@ -30,7 +30,7 @@ Never try to interact based on a screenshot. Screenshots are for visual output o
 - default: current viewport
 - `fullPage: true`: entire scrollable page
 - `target: "e12"`: single element
-- `type`: png/jpeg/webp; `filename`: relative name goes to the server output dir
+- `type`: png/jpeg/webp; `filename`: relative names resolve against opencode's working directory; an auto-created `.playwright-mcp/` folder next to it holds snapshots and other artifacts
 
 ## Profiles
 
