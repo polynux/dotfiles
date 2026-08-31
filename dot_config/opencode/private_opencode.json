@@ -36,7 +36,7 @@
     "godot": {
       "type": "local",
       "command": ["npx", "-y", "@coding-solo/godot-mcp"],
-      "enabled": true,
+      "enabled": false,
       "environment": {
         "GODOT_PATH": "/usr/bin/godot",
         "DEBUG": "false"
