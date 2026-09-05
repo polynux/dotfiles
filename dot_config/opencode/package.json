@@ -1,9 +1,11 @@
 {
   "dependencies": {
-    "@opencode-ai/plugin": "1.18.25",
+    "@opencode-ai/plugin": "1.18.29",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@types/turndown": "^5.0.6"
+    "@types/node": "^26.4.1",
+    "@types/turndown": "^5.0.6",
+    "typescript": "^7.0.2"
   }
 }
