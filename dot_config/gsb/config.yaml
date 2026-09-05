@@ -1,0 +1,28 @@
+steam_roots: []
+buffer_dir: ~/.local/share/gsb/buffer
+state_dir: ~/.local/state/gsb
+cache_dir: ~/.cache/gsb
+local_repo_root: /mnt/superes/backups/games
+remote:
+  enabled: true
+  user: borg
+  host: 10.0.10.128
+  base_path: /srv/borg
+retention:
+  daily: 7
+  weekly: 4
+  monthly: 6
+compression: zstd,9
+watch:
+  poll_interval: 15
+  debounce: 120
+cold:
+  enabled: true
+  day_of_month: 1
+alerts:
+  notify: true
+  email:
+    enabled: false
+    from: gsb@localhost
+    to: ""
+    subject_prefix: "[gsb]"

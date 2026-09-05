@@ -1,0 +1,22 @@
+"Rivage":
+  slug: rivage
+  process:
+    exes:
+      - Rivage.exe
+    steamIds:
+      - 4094660
+      - 4465080
+  files:
+    <winLocalAppData>/Rivage:
+      when:
+        - os: windows
+
+"Object Impermanence":
+  slug: object-impermanence
+  process:
+    exes:
+      - ObjectImpermanence.exe
+    steamIds:
+      - 4330960
+      - 3595450
+  files: {}
