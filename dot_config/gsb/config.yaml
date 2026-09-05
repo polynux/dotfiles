@@ -22,7 +22,7 @@ cold:
 alerts:
   notify: true
   email:
-    enabled: false
-    from: gsb@localhost
-    to: ""
+    enabled: true
+    from: larue@grossebeut.eu
+    to: larue@grossebeut.eu
     subject_prefix: "[gsb]"
