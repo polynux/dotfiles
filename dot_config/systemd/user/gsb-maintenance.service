@@ -1,0 +1,8 @@
+[Unit]
+Description=gsb nightly maintenance (scan all games, prune)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/gsb backup
+ExecStart=%h/.local/bin/gsb prune
+ExecStart=%h/.local/bin/gsb sync

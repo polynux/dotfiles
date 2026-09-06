@@ -1,0 +1,12 @@
+[Unit]
+Description=gsb game save watcher (backup on game close)
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/gsb watch
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target

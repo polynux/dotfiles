@@ -1,0 +1,6 @@
+[Unit]
+Description=gsb monthly cold archive sweep
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/gsb sweep-cold
