@@ -44,6 +44,26 @@
         "gpt-5.3-codex": {
           "name": "GPT-5.3 Codex",
           "limit": { "context": 400000, "output": 128000 }
+        },
+        "kimi-k3": {
+          "name": "Kimi K3",
+          "limit": { "context": 1000000, "output": 128000 }
+        },
+        "glm-5.3": {
+          "name": "GLM-5.3",
+          "limit": { "context": 202752, "output": 131072 }
+        },
+        "glm-5.3-flash": {
+          "name": "GLM-5.3 Flash",
+          "limit": { "context": 202752, "output": 131072 }
+        },
+        "claude-fable-5-1": {
+          "name": "Claude Fable 5.1",
+          "limit": { "context": 1000000, "output": 128000 }
+        },
+        "gpt-6-astra": {
+          "name": "GPT-6 Astra",
+          "limit": { "context": 400000, "output": 128000 }
         }
       }
     },
