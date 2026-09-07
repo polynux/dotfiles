@@ -10,8 +10,7 @@
       "name": "Openlux",
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "https://api.openlux.ai/v1",
-        "apiKey": "{env:OPENLUX_API_KEY}"
+        "baseURL": "https://api.openlux.ai/v1"
       },
       "models": {
         "gpt-5.6-sol": {
