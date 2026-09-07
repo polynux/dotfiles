@@ -186,6 +186,7 @@ hl.layer_rule({ match = { namespace = "^dms:.*" }, no_anim = true })
 require("modules.smw")
 require("modules.binds")
 require("modules.noctalia")
+require("modules.hdr")
 
 -- For Noctalia Color templates
 require("noctalia").apply_theme()
