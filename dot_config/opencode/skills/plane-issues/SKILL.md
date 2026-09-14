@@ -77,11 +77,35 @@ When a plan is agreed (or plan mode completes):
 3. When the bug is fixed: `workitem` `update` the state to Done and add a
    closing `workitem_comment` with the fix summary and commit reference if known.
 
+## State lifecycle
+
+Projects carry states like Backlog, Todo, In Progress, Done, Canceled. Resolve
+them once per session per project with `state` `list`; use state names when
+talking to the user, state ids in `workitem` `update`. Transitions are
+mandatory, not optional:
+
+- **Created** plan items land in the project's default/backlog state. Do not
+  pre-move items to In Progress "to be ready".
+- **Starting work**: the turn you begin implementing an item (writing code for
+  it), move it to "In Progress". Same turn, no exceptions.
+- **Finished work**: the turn an item's work is done and verified, move it to
+  "Done" and add a closing comment (what was done, commit if known).
+- **Dropped/superseded/won't do**: move to "Canceled" with a comment saying why.
+  Do not delete items.
+- **Blocked or paused**: keep In Progress and add a comment explaining the
+  blocker; do not shuffle states to signal blocking.
+- Never move an item backwards silently (Done → In Progress); if it must happen,
+  explain it in a comment.
+- If state names differ from these, pick the closest by group (backlog, started,
+  completed, cancelled) and say which one you mapped to.
+
 ## Status hygiene
 
-- Completed work → update the work item's state in the same turn, not "later".
-- Never leave an item "In Progress" when its work is finished.
-- When resuming tracked work, read the item's current state and comments first.
+- State transitions follow the lifecycle above — completed work gets Done in the
+  same turn, started work gets In Progress in the same turn.
+- When resuming tracked work, read the item's current state and comments first;
+  if its state contradicts reality (e.g. "In Progress" but nothing started), fix
+  it and note why in a comment.
 
 ## Guardrails
 
