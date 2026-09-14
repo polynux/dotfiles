@@ -135,6 +135,17 @@
       ],
       "enabled": false,
       "timeout": 120000
+    },
+    "plane": {
+      "type": "local",
+      "command": ["uvx", "plane-mcp-server", "stdio"],
+      "enabled": true,
+      "environment": {
+        "PLANE_API_KEY": "{file:~/.secrets/plane-api-key}",
+        "PLANE_BASE_URL": "http://plane.local",
+        "PLANE_WORKSPACE_SLUG": "polynux"
+      },
+      "timeout": 120000
     }
   }
 }
