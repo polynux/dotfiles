@@ -139,7 +139,7 @@
     "plane": {
       "type": "local",
       "command": ["uvx", "plane-mcp-server", "stdio"],
-      "enabled": true,
+      "enabled": false,
       "environment": {
         "PLANE_API_KEY": "{file:~/.secrets/plane-api-key}",
         "PLANE_BASE_URL": "http://plane.local",
