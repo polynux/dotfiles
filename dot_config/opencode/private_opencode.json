@@ -167,9 +167,8 @@
     "whatsapp": {
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "whatsapp-mcp-plus"
+        "node",
+        "/home/polynux/.local/share/whatsapp-mcp-plus/src/dist/index.js"
       ],
       "enabled": false,
       "environment": {
