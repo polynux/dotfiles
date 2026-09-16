@@ -104,7 +104,11 @@
   "mcp": {
     "godot": {
       "type": "local",
-      "command": ["npx", "-y", "@coding-solo/godot-mcp"],
+      "command": [
+        "npx",
+        "-y",
+        "@coding-solo/godot-mcp"
+      ],
       "enabled": false,
       "environment": {
         "GODOT_PATH": "/usr/bin/godot",
@@ -138,12 +142,40 @@
     },
     "plane": {
       "type": "local",
-      "command": ["uvx", "plane-mcp-server", "stdio"],
+      "command": [
+        "uvx",
+        "plane-mcp-server",
+        "stdio"
+      ],
       "enabled": false,
       "environment": {
         "PLANE_API_KEY": "{file:~/.secrets/plane-api-key}",
         "PLANE_BASE_URL": "http://plane.local",
         "PLANE_WORKSPACE_SLUG": "polynux"
+      },
+      "timeout": 120000
+    },
+    "executor": {
+      "type": "local",
+      "command": [
+        "executor",
+        "mcp"
+      ],
+      "environment": {},
+      "enabled": true
+    },
+    "whatsapp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "whatsapp-mcp-plus"
+      ],
+      "enabled": false,
+      "environment": {
+        "WAMCP_MODE": "read-only",
+        "WAMCP_DATA_DIR": "/home/polynux/.local/share/whatsapp-mcp-plus/data",
+        "WAMCP_AUTH_DIR": "/home/polynux/.local/share/whatsapp-mcp-plus/auth_info"
       },
       "timeout": 120000
     }
