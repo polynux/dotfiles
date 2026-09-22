@@ -1,22 +1,25 @@
-# bitwarden.fish — lazy Bitwarden unlock for fish (fish-ssh-agent style)
+# bitwarden.fish — on-demand Bitwarden secret loading for fish
 #
-# First interactive shell after boot: asks for the master password (once),
-# syncs the vault, and exports every secret declared in $BW_EXPORTS.
-# BW_SESSION lives in a tmpfs keyring under /run/user → memory only,
-# disappears on reboot/shutdown, just like ssh-agent sockets.
-# Later shells (same boot): silently reuse the stored session, no prompt.
+# NOTHING runs at shell startup: no unlock prompt, no env vars exported.
+# When you need the keys (e.g. before launching an agent), run:
 #
-# Usage:
-#   bitwarden          — unlock if needed, sync, export keys
-#   bitwarden export   — no re-unlock; sync + (re)export keys from current session
-#   bitwarden -f       — force re-unlock (new session, even if one exists)
-#   bitwarden lock     — delete the stored session and all exported vars
-#   bw-status          — quick state display
+#   bitwarden          — load keys into THIS shell (unlocks once per boot if needed)
+#   bitwarden export   — refresh keys: sync the vault + re-export (no unlock prompt)
+#   bitwarden -f       — force re-unlock (new session even if one exists)
+#   bitwarden lock     — wipe the stored session and unset all exported vars
+#   bw-status          — show session/key state
+#
+# The BW_SESSION key lives in a tmpfs keyring under $XDG_RUNTIME_DIR →
+# memory only, lost at reboot, so the master password is asked once per boot.
+# Keys are exported into the current shell only; child processes (e.g.
+# freebuff and its MCP servers) inherit them. Other shells stay clean.
 #
 # Declaring secrets (one line per env var, e.g. in config.fish or conf.d):
 #   set -g BW_EXPORTS PLANE_API_KEY GITHUB_TOKEN MY_NEW_KEY
 # Vault item name is derived from the var name: PLANE_API_KEY → "plane-api-key".
 # Override an item name with: set -g BW_ITEM_MY_NEW_KEY "custom item name"
+# If the vault has no item, the file ~/.secrets/<item-name> is used as a
+# fallback (mode 600, single line with the raw value).
 
 # ---------------------------------------------------------------- config ----
 set -g BW_KEYRING_DIR "$XDG_RUNTIME_DIR/bitwarden"
@@ -49,16 +52,19 @@ function __bw_fetch --description "Fetch one item (password field, falling back 
     test -n "$val"; and echo "$val"
 end
 
-function __bw_export_all --description "Export every declared secret from the unlocked vault"
+function __bw_export_all --description "Export every declared secret (vault first, ~/.secrets file fallback)"
     set -l failures 0
     for var in $BW_EXPORTS
         set -l item (__bw_item_name "$var")
         set -l val (__bw_fetch "$item")
         if test $status -eq 0
             set -gx $var "$val"
-            echo "  ✓ $var ← '$item'"
+            echo "  ✓ $var ← vault:'$item'"
+        else if test -f "$HOME/.secrets/$item"
+            set -gx $var (cat "$HOME/.secrets/$item")
+            echo "  ✓ $var ← file:~/.secrets/$item"
         else
-            echo "  ✗ $var: could not fetch item '$item' from vault" >&2
+            echo "  ✗ $var: no vault item '$item' and no ~/.secrets/$item" >&2
             set failures (math $failures + 1)
         end
     end
@@ -74,7 +80,7 @@ function __bw_sync --description "Sync the vault; warn but never block on error"
 end
 
 # ---------------------------------------------------------------- command ---
-function bitwarden --description "Unlock Bitwarden once per boot and export declared secrets"
+function bitwarden --description "Load Bitwarden secrets into the current shell (on demand)"
     set -l force 0
     set -l mode
     for a in $argv
@@ -101,13 +107,13 @@ function bitwarden --description "Unlock Bitwarden once per boot and export decl
         return 0
     end
 
-    # Fast path: a session already exists (env or keyring), skip the prompt.
+    # Fast path: a session already exists (env or tmpfs keyring), no prompt.
     if test $force -eq 0
         if not __bw_valid_session; and test -f "$BW_KEYRING_SESSION"
             set -gx BW_SESSION (cat "$BW_KEYRING_SESSION")
         end
         if __bw_valid_session
-            # Sync only on the explicit trigger, not in every shell (latency).
+            # Sync only on the explicit 'export' trigger, to keep 'load' fast.
             if test "$mode" = export
                 __bw_sync
             end
@@ -122,7 +128,7 @@ function bitwarden --description "Unlock Bitwarden once per boot and export decl
 
     # Slow path: interactive unlock, with an explicit prompt so it's obvious
     # that the shell is waiting for input.
-    echo "🔑 To export your secrets, the Bitwarden vault must be unlocked."
+    echo "🔑 To load your secrets, the Bitwarden vault must be unlocked."
     echo "   (Once per boot — the session is kept in memory only, lost at reboot.)"
     read -l -s -P "   Master password (input hidden): " pw
     if test $status -ne 0; or test -z "$pw"
@@ -154,7 +160,7 @@ function bitwarden --description "Unlock Bitwarden once per boot and export decl
     echo "   Syncing vault…"
     __bw_sync
     __bw_export_all
-    and echo "Vault unlocked for this boot."
+    and echo "Secrets loaded into this shell (session kept for this boot)."
 end
 
 # ---------------------------------------------------------------- status ----
@@ -162,9 +168,9 @@ function bw-status --description "Show Bitwarden session state"
     if __bw_valid_session
         echo "BW_SESSION: valid (from environment)"
     else if test -f "$BW_KEYRING_SESSION"
-        echo "BW_SESSION: stored but likely stale — run: bitwarden -f"
+        echo "BW_SESSION: stored (tmpfs) — run 'bitwarden' to load keys in this shell"
     else
-        echo "BW_SESSION: none — run: bitwarden"
+        echo "BW_SESSION: none — run 'bitwarden' to unlock and load keys"
     end
     for var in $BW_EXPORTS
         if set -q $var
@@ -173,11 +179,4 @@ function bw-status --description "Show Bitwarden session state"
             echo "$var: not set"
         end
     end
-end
-
-# -------------------------------------------------- fish-ssh-agent hook -----
-# Run the unlock once per boot in interactive shells. The tmpfs marker makes
-# it re-arm automatically after a reboot, exactly like ssh-agent startup.
-if status is-interactive; and not set -q BW_SESSION
-    bitwarden
 end
