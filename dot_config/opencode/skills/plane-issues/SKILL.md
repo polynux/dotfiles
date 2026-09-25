@@ -1,6 +1,6 @@
 ---
 name: plane-issues
-description: Plane.so issue tracking workflow. Use ONLY when the plane MCP server's tools (project, workitem, workitem_comment, workitem_relation) are available in the current session. Trigger on planning, roadmaps, implementation plans, bug discovery, errors, failing tests, and any request to track, file, or log issues. Converts plans into Plane work items and bugs into labeled issues, deduplicates against existing items, and keeps statuses current.
+description: Plane.so issue tracking workflow. Use ONLY when the complete Plane MCP inventory required by this skill is available. If Plane tools are unavailable or incomplete, do nothing and stay quiet. When available, track plans, bugs, explicit issue requests, state transitions, evidence, and closure without duplicates or sensitive data.
 ---
 
 # Plane issue tracking
@@ -8,14 +8,80 @@ description: Plane.so issue tracking workflow. Use ONLY when the plane MCP serve
 Plane is the source of truth for issues. When its tools are available, tracking
 work there is not optional — it is part of finishing the work.
 
+## Source and drift control
+
+`~/.config/opencode/skills/plane-issues/SKILL.md` is the canonical runtime copy
+of this skill. The matching `~/.agents/skills/plane-issues/SKILL.md` path must
+be a symlink to this file; do not maintain a second regular-file copy.
+
+Check the relationship without modifying it:
+
+```bash
+test -L "$HOME/.agents/skills/plane-issues/SKILL.md" &&
+test "$(readlink -f "$HOME/.agents/skills/plane-issues/SKILL.md")" = \
+  "$(readlink -f "$HOME/.config/opencode/skills/plane-issues/SKILL.md")"
+```
+
+The chezmoi source for the OpenCode copy is maintained separately by the
+user's dotfile workflow.
+
 ## Activation
 
-These rules apply ONLY when plane MCP tools are present in this session. If the
-tools are absent, do nothing and stay quiet. If present, they apply to:
+These rules apply ONLY when the complete Plane MCP inventory below is available
+in this session. If Plane tools are unavailable or incomplete, do nothing and
+stay quiet. Do not enable Plane, inspect credentials, infer API access, or
+recreate Plane calls through another integration.
+
+Required inventory:
+
+| Tool family | Required operations |
+|---|---|
+| `project` | `list`, `create` |
+| `workitem` | `retrieve_by_identifier`, `search` or `list`, `create`, `update` |
+| `workitem_comment` | `create` |
+| `workitem_relation` | `create` |
+| `workitem_type` | `resolve` |
+| `label` | `list`, `create` |
+| `state` | `list` |
+| PQL support | `get_pql_reference` when PQL syntax is unclear |
+
+Every operation referenced by this skill must be available before Plane work
+begins.
+
+These rules apply to:
 
 - **Plans**: planning a feature, roadmap, refactor, or any multi-step design. Every actionable task in the plan becomes a Plane work item.
 - **Bugs**: discovered errors, failing tests, reproduced defects. Each gets an issue immediately.
 - **Explicit requests**: "file this", "track it", "log an issue", "open a ticket".
+- **Tracked work**: resuming, implementing, verifying, deploying, or closing an
+  existing work item.
+
+## Redaction and data handling
+
+Plane titles, descriptions, comments, evidence, and final responses must use
+the minimum information needed to track and verify the work.
+
+Never copy or disclose:
+
+- API keys, access tokens, passwords, cookies, session values, private keys,
+  webhook secrets, environment values, or credential-file contents.
+- Complete customer messages, chat transcripts, private contact details,
+  order identifiers, payment data, account identifiers, or other personal data.
+- Raw database rows, dumps, exports, query results containing customer data, or
+  database credentials.
+- Raw production logs, sensitive stack traces, request bodies, authorization
+  headers, session identifiers, token-bearing URLs, or unfiltered screenshots.
+
+Use an anonymized summary containing only the symptom, relevant category,
+necessary date or timestamp, environment, and a non-sensitive reference.
+Replace values with `[REDACTED]` in commands, output, diffs, screenshots,
+attachments, comments, and final responses. If sensitive data appears, stop
+sharing it, redact it, and record only that exposure occurred.
+
+For customer-originated requests, record minimal provenance such as the date or
+non-sensitive message reference; never paste the original message. For database
+or production investigations, record purpose, scope, counts, status, and result
+category, never raw values or unfiltered logs.
 
 ## Project resolution — never guess
 
@@ -62,20 +128,44 @@ When a plan is agreed (or plan mode completes):
 5. Add a `workitem_comment` `create` on each referencing the plan or session
    that produced it.
 6. Report the created identifiers (e.g. `AUTH-43`) back to the user.
+7. Link every item to the source plan and retain its exact identifier.
+8. Add the plan link, acceptance criteria, affected scope, and expected
+   verification evidence to the item's comment.
 
 ## Bugs → issues
 
-1. Resolve the project. File the issue immediately — no bulk confirmation needed
-   for a single bug.
-2. `workitem` `create` with:
+1. Resolve the project. Search for an existing matching item first; a single bug
+   does not require bulk confirmation, but it still follows the no-duplicates
+   workflow above.
+2. If no matching item exists, `workitem` `create` with:
    - title: short symptom, not the diagnosis ("500 on POST /login", not "broken");
    - description_html: repro steps, expected vs actual, error output, affected
      code path (file:line), environment notes;
-   - label `bug` — check with `label` `list` first; create it (`label` `create`,
-     any hex color, red suggested) only if missing;
+    - label `bug` — check with `label` `list` first; if it is missing, confirm
+      before using `label` `create`;
    - priority: set from severity when evident, otherwise leave default and say so.
 3. When the bug is fixed: `workitem` `update` the state to Done and add a
-   closing `workitem_comment` with the fix summary and commit reference if known.
+   closing comment only after the Definition of Done is satisfied. Include the
+   issue identifier, plan link or explicit non-applicability, fix summary,
+   commit, deployment reference or explicit non-applicability, verification
+   evidence, and known limitations.
+
+## Required work-item record
+
+Every actionable item must contain or link to:
+
+- the exact issue identifier, such as `AUTH-42`;
+- the relevant plan link, or `Plan: not applicable` with a reason;
+- scope, acceptance criteria, affected files or systems, and environment;
+- the implementation commit hash, once a change is committed;
+- the deployment or release identifier when deployment applies, or
+  `Deployment: not applicable` with a reason;
+- verification evidence identifying checks and results;
+- known limitations, skipped checks, blockers, and rollback or follow-up status.
+
+Use the issue identifier in branch names, commits, deployment notes, and
+verification records where those systems support it. Never invent identifiers,
+links, hashes, deployment references, or verification results.
 
 ## State lifecycle
 
@@ -88,8 +178,8 @@ mandatory, not optional:
   pre-move items to In Progress "to be ready".
 - **Starting work**: the turn you begin implementing an item (writing code for
   it), move it to "In Progress". Same turn, no exceptions.
-- **Finished work**: the turn an item's work is done and verified, move it to
-  "Done" and add a closing comment (what was done, commit if known).
+- **Finished work**: only after the Definition of Done is satisfied, move it to
+  "Done" and add the required evidence-bearing closing comment.
 - **Dropped/superseded/won't do**: move to "Canceled" with a comment saying why.
   Do not delete items.
 - **Blocked or paused**: keep In Progress and add a comment explaining the
@@ -101,8 +191,12 @@ mandatory, not optional:
 
 ## Status hygiene
 
-- State transitions follow the lifecycle above — completed work gets Done in the
-  same turn, started work gets In Progress in the same turn.
+- Created plan items remain in the default/backlog state until work starts.
+- Starting implementation moves the item to In Progress in the same turn.
+- Verification failure, missing evidence, uncommitted changes, or an unresolved
+  blocker prevents Done.
+- Completed work gets Done in the same turn only after all closure evidence is
+  recorded.
 - When resuming tracked work, read the item's current state and comments first;
   if its state contradicts reality (e.g. "In Progress" but nothing started), fix
   it and note why in a comment.
@@ -113,3 +207,36 @@ mandatory, not optional:
 - No mass-creation outside the confirmed plan-conversion flow.
 - Creating a Plane project, label, or state counts as a write: confirm first.
 - Prefer one informative comment over rewriting descriptions wholesale on update.
+- Never close an item with “commit if known”; record the applicable commit or
+  explicit non-applicability before Done.
+- Never place raw customer messages, database values, production logs, or
+  credentials in Plane.
+- If required evidence cannot be produced, keep the item open and state what is
+  missing.
+
+## Definition of Done
+
+Move a work item to `Done` only when all applicable conditions are satisfied:
+
+1. The exact Plane issue identifier is known and recorded.
+2. Scope and acceptance criteria are current and unambiguous.
+3. The relevant plan is linked, or non-applicability is recorded with a reason.
+4. The implementation is complete within the agreed scope.
+5. Applicable focused tests, broader tests, lint, builds, browser checks, and
+   operational checks pass, with commands and results recorded.
+6. Repository changes have been reviewed with `git diff` and committed; the
+   commit hash is recorded. Uncommitted repository changes block Done.
+7. Deployed changes include the target environment, deployment/release
+   identifier, and result. Non-deployed changes explicitly say why deployment
+   is not applicable.
+8. Known failures, skipped checks, limitations, and rollback or follow-up work
+   are resolved or tracked separately.
+9. The closing comment includes issue, plan, implementation summary, commit,
+   deployment, verification evidence, and limitations.
+10. All evidence is redacted and contains no secrets, complete customer
+    messages, raw database values, or unfiltered production logs.
+
+If any applicable condition is missing, keep the item In Progress or in the
+appropriate waiting state. A blocked or paused item remains In Progress with
+the blocker and next decision recorded. A canceled item requires a comment
+explaining why.
