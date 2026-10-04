@@ -1,4 +1,4 @@
-import type { TuiPluginModule } from "@opencode-ai/plugin/tui"
+import { Plugin } from "@opencode/plugin/tui"
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { homedir } from "node:os"
 import { join } from "node:path"
@@ -31,9 +31,9 @@ function readRecords(): JobRecord[] {
   return out
 }
 
-const TuiBackgroundPlugin: TuiPluginModule = {
+export default Plugin.define({
   id: "background-tui",
-  async tui(api) {
+  setup(context) {
     const seen = new Set<string>(readRecords().filter((r) => r.status === "running").map((r) => r.id))
 
     const poll = () => {
@@ -45,7 +45,7 @@ const TuiBackgroundPlugin: TuiPluginModule = {
           if (rec.endedAt && Date.parse(rec.endedAt) < Date.now() - POLL_MS * 2) continue
           const label = rec.name ?? rec.id
           const okExit = rec.status === "finished"
-          api.ui.toast({
+          context.ui.toast.show({
             variant: okExit ? "success" : "error",
             title: `bg job ${label}`,
             message: `${okExit ? "finished" : `failed (exit ${rec.exitCode ?? "?"})`} — ${commandExcerpt(rec.command)}`,
@@ -56,8 +56,6 @@ const TuiBackgroundPlugin: TuiPluginModule = {
     }
 
     const timer = setInterval(poll, POLL_MS)
-    api.lifecycle.onDispose(() => clearInterval(timer))
+    return () => clearInterval(timer)
   },
-}
-
-export default TuiBackgroundPlugin
+})
