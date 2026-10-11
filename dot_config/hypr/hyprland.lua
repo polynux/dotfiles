@@ -10,12 +10,14 @@ hl.monitor({
     position = "0x0",
     scale    = 1,
     bitdepth = 10,
+    vrr      = 0,
 })
 hl.monitor({
     output   = "DP-2",
     mode     = "1920x1080@120",
     position = "2560x0",
     scale    = 1,
+    vrr      = 0,
 })
 hl.monitor({
     output   = "",
@@ -42,7 +44,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("kdeconnectd &")
     -- hl.exec_cmd("blueman-applet &")
     hl.exec_cmd("trayscale --hide-window &")
-    hl.exec_cmd("vesktop &")
+    -- hl.exec_cmd("vesktop &")
+    hl.exec_cmd("discord &")
     hl.exec_cmd("steam -silent &")
     hl.exec_cmd("tidal-hifi &")
     hl.exec_cmd("syncthingtray-qt6 &")
