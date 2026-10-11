@@ -44,16 +44,18 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("kdeconnectd &")
     -- hl.exec_cmd("blueman-applet &")
     hl.exec_cmd("trayscale --hide-window &")
+    -- Tray host first: discord/steam register StatusNotifier icons only if the host already exists
+    hl.exec_cmd("noctalia &")
     -- hl.exec_cmd("vesktop &")
-    hl.exec_cmd("discord &")
+    -- Delayed so the tray host is ready; --start-minimized keeps it in tray on ws6
+    hl.exec_cmd("sleep 3 && discord --start-minimized &")
     hl.exec_cmd("steam -silent &")
     hl.exec_cmd("tidal-hifi &")
     hl.exec_cmd("syncthingtray-qt6 &")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("flameshot &")
     -- hl.exec_cmd("handy --start-hidden &")
-    hl.exec_cmd("noctalia")
-    hl.exec_cmd("protonvpn-app")
+    hl.exec_cmd("protonvpn-app &")
 end)
 
 -- ==================
@@ -161,6 +163,7 @@ hl.window_rule({ match = { class = "^it\\.mijorus\\.smile$", title = "^Smile$" }
 hl.window_rule({ match = { title = "^CopyQ$" }, float = true })
 
 hl.window_rule({ match = { class = "^vesktop$" }, workspace = 6 })
+hl.window_rule({ match = { class = "^discord$" }, workspace = 6 })
 hl.window_rule({ match = { class = "^tidal-hifi$" }, workspace = 7 })
 
 hl.window_rule({ match = { class = "^flameshot$" }, float = true })
