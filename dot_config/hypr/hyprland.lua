@@ -38,7 +38,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd --all")
     hl.exec_cmd("systemctl --user start hyprland-session.target")
     -- hl.exec_cmd("qs -c noctalia-shell &")
-    hl.exec_cmd("hypridle")
+    -- hl.exec_cmd("hypridle")  -- DISABLED 2026-10-11: noctalia covers idle lock/screen-off/suspend natively; hypridle had zero active listeners left
     hl.exec_cmd("hyprpaper &")
     hl.exec_cmd("variety &")
     hl.exec_cmd("kdeconnectd &")
