@@ -51,6 +51,10 @@ mcp = {
     }
   }
 }
+wamcp = os.path.expanduser("~/.local/share/whatsapp-mcp-plus/src/dist/index.js")
+if not os.path.exists(wamcp):
+    mcp.pop("whatsapp", None)
+    print("whatsapp: skipped (bundle not installed)")
 p = os.path.expanduser("~/.claude.json")
 d = json.load(open(p)) if os.path.exists(p) else {}
 have = d.setdefault("mcpServers", {})
@@ -108,6 +112,10 @@ mcp = {
     }
   }
 }
+wamcp = os.path.expanduser("~/.local/share/whatsapp-mcp-plus/src/dist/index.js")
+if not os.path.exists(wamcp):
+    mcp.pop("whatsapp", None)
+    print("whatsapp: skipped (bundle not installed)")
 p = os.path.expanduser("~/.claude.json")
 d = json.load(open(p)) if os.path.exists(p) else {}
 have = d.setdefault("mcpServers", {})
