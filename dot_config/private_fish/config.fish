@@ -80,3 +80,13 @@ if status is-interactive
 
     set -gx GOPATH "$HOME/.go"
 end
+
+# opencode
+fish_add_path /home/polynux/.opencode/bin
+
+# pnpm
+set -gx PNPM_HOME "/home/polynux/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end

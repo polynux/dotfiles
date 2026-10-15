@@ -11,3 +11,6 @@ battery.lua
 .config/opencode/bun.lock
 .config/opencode/package-lock.json
 .config/opencode/.gitignore
+.config/variety/.version
+.config/variety/.last_change_time
+.config/variety/history.txt
