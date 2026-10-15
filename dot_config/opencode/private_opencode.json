@@ -68,10 +68,28 @@
           "limit": { "context": 1000000, "output": 128000 },
           "modalities": { "input": ["text", "image"], "output": ["text"] }
         },
+        "claude-opus-5-5": {
+          "name": "Claude Opus 5.5",
+          "limit": { "context": 1000000, "output": 128000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] }
+        },
         "gpt-6-astra": {
           "name": "GPT-6 Astra",
           "limit": { "context": 400000, "output": 128000 },
           "modalities": { "input": ["text", "image"], "output": ["text"] }
+        }
+      }
+    },
+    "freebuff": {
+      "name": "Freebuff",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://www.codebuff.com/api/v1",
+      },
+      "models": {
+        "z-ai/glm-5.3-flash": {
+          "name": "GLM 5.3 Flash (Freebuff)",
+          "limit": { "context": 202752, "output": 131072 }
         }
       }
     },
@@ -174,7 +192,8 @@
       "environment": {
         "WAMCP_MODE": "read-only",
         "WAMCP_DATA_DIR": "/home/polynux/.local/share/whatsapp-mcp-plus/data",
-        "WAMCP_AUTH_DIR": "/home/polynux/.local/share/whatsapp-mcp-plus/auth_info"
+        "WAMCP_AUTH_DIR": "/home/polynux/.local/share/whatsapp-mcp-plus/auth_info",
+        "WAMCP_SCOPES": "read,analytics,media"
       },
       "timeout": 120000
     }
