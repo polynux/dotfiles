@@ -50,18 +50,20 @@ return {
       }
 
       -- Override the blink source to skip new requests while one is pending
-      -- or when in the Avante input buffer
       local blink_source = require 'minuet.blink'
       local original_get_completions = blink_source.get_completions
 
       blink_source.get_completions = function(self, ctx, callback)
-        local not_manual = ctx.trigger.kind ~= 'manual'
-        if not_manual and #common.current_jobs > 0 then
-          -- A request is already in flight; don't kill it, just return
+        local ft = vim.bo.filetype
+        if ft == 'opencode' or ft == 'opencode_output' then
           callback()
           return
         end
-        if not_manual and vim.bo.filetype == 'AvanteInput' then
+        if ctx.trigger.kind ~= 'manual' then
+          callback()
+          return
+        end
+        if #common.current_jobs > 0 then
           callback()
           return
         end
