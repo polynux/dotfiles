@@ -133,6 +133,28 @@
         "DEBUG": "false"
       }
     },
+    "blender": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-for-blender"
+      ],
+      "enabled": false,
+      "timeout": 120000
+    },
+    "ghidra": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/LaurieWired/GhidraMCP",
+        "ghidra-mcp",
+        "--ghidra-server",
+        "http://127.0.0.1:8080/"
+      ],
+      "enabled": false,
+      "timeout": 120000
+    },
     "browser": {
       "type": "local",
       "command": [
