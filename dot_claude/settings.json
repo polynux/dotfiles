@@ -1,4 +1,5 @@
 {
+  "theme": "dark",
   "skipDangerousModePermissionPrompt": true,
   "modelSettings": {
     "muse-spark-1.3-contributor": {
