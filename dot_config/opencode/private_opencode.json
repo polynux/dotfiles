@@ -93,6 +93,20 @@
         }
       }
     },
+    "strata": {
+      "name": "Strata (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1",
+        "apiKey": "local"
+      },
+      "models": {
+        "qwen3.8-flash-next-coder": {
+          "name": "Qwen3.8 Flash Next Coder IQ1_M (Strata)",
+          "limit": { "context": 32768, "output": 8192 }
+        }
+      }
+    },
     "ollama": {
       "models": {
         "glm-5.1:cloud": {
