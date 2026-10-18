@@ -40,7 +40,7 @@ hl.on("hyprland.start", function()
     -- hl.exec_cmd("qs -c noctalia-shell &")
     -- hl.exec_cmd("hypridle")  -- DISABLED 2026-10-11: noctalia covers idle lock/screen-off/suspend natively; hypridle had zero active listeners left
     hl.exec_cmd("hyprpaper &")
-    hl.exec_cmd("variety &")
+    hl.exec_cmd("/home/polynux/.local/bin/variety &")  -- fork polynux/variety feat/reddit-rss-fallback (RSS+auth), userspace venv; falls back to PATH variety if missing
     hl.exec_cmd("kdeconnectd &")
     -- hl.exec_cmd("blueman-applet &")
     hl.exec_cmd("trayscale --hide-window &")
