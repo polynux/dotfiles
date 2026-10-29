@@ -1,5 +1,7 @@
 # Global agent instructions
 
+For code search and refactors, use ast-grep (load the `ast-grep` skill) instead of grep/rg/sed.
+
 ## Model budget for delegated work
 
 Applies to every project. When you launch a T3 thread, delegate a task, or start any other agent that does execution work (planning, coding, refactors, UI checks, verification), pick its model from these tiers. Don't let it inherit your own model.
