@@ -29,6 +29,13 @@ Check right before picking a Tier 1 model, once per batch of launches:
 
 When a gate blocks a Tier 1 model, say so in one line ("Claude week at 85%, using DeepSeek").
 
+### Reasoning effort
+
+Set it explicitly in `modelSelection.options` (user decision, 2026-10-30):
+
+- `claude-haiku-5-5`: `{"effort":"high"}` by default, `{"effort":"xhigh"}` for multi-step, debugging or investigation work.
+- `opencode-go/muse-spark-1.3-contributor`: `{"variant":"xhigh"}`.
+
 ### Rules
 
 - **Verification** uses a different model than the one that did the work.
