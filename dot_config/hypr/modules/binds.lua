@@ -125,8 +125,8 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- === Click-drag resize on keys (legacy: bindd = SUPER, code:20, ..., resizeactive, -100 0) ===
-hl.bind(mainMod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { mouse = true, drag = true })
-hl.bind(mainMod .. " + code:21", hl.dsp.window.resize({ x =  100, y = 0, relative = true }), { mouse = true, drag = true })
+hl.bind(mainMod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { drag = true })
+hl.bind(mainMod .. " + code:21", hl.dsp.window.resize({ x =  100, y = 0, relative = true }), { drag = true })
 
 -- === Manual Sizing (repeat while held; legacy used 10% of window size) ===
 local function resize_percent(dx_pct, dy_pct)
