@@ -1,3 +1,13 @@
+model_provider = "cliproxyapi"
+model = "gpt-5.5"
+
+[model_providers.cliproxyapi]
+name = "cliproxyapi"
+base_url = "http://10.0.10.130:8317/v1"
+wire_api = "responses"
+requires_openai_auth = true
+http_headers = { "X-Api-Key" = "{{ .cliproxyCodexKey }}" }
+
 [projects."/home/polynux/Games/KFC-2025120900"]
 trust_level = "trusted"
 

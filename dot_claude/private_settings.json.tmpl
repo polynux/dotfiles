@@ -1,0 +1,16 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://10.0.10.130:8317",
+    "ANTHROPIC_AUTH_TOKEN": "{{ .cliproxyClaudeKey }}"
+  },
+  "modelSettings": {
+    "muse-spark-1.3-contributor": {
+      "effortLevel": "high"
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+{{- if eq .chezmoi.hostname "arco-b550" }}
+  "model": "haiku"
+{{- end }}
+}
